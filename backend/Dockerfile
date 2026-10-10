@@ -1,19 +1,3 @@
-FROM node:20-alpine AS builder
-
-RUN npm install -g pnpm@9.15.0
-
-WORKDIR /app
-
-COPY package.json pnpm-lock.yaml ./
-COPY prisma ./prisma/
-
-# Install all deps (including dev) and generate prisma client with dummy URL
-RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm install --frozen-lockfile
-
-COPY . .
-RUN pnpm build
-
-# ── Runtime ──────────────────────────────────────────────
 FROM node:20-alpine
 
 RUN npm install -g pnpm@9.15.0
@@ -22,13 +6,14 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
+COPY src ./src/
+COPY tsconfig.json ./
 
-# Install ALL deps including prisma CLI for migrate deploy
+# Install all deps (including devDeps for prisma CLI and tsc)
 RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm install --frozen-lockfile
 
-COPY --from=builder /app/dist ./dist
-# Copy generated prisma client from builder
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+# Build TypeScript
+RUN node_modules/.bin/tsc
 
 EXPOSE 3000
 
