@@ -1,0 +1,9 @@
+export { default as Icon } from "./Icon";
+export { default as Logo } from "./Logo";
+export { default as SectionHeading } from "./SectionHeading";
+export { default as DashboardVisual } from "./DashboardVisual";
+export { default as ProjectMockup } from "./ProjectMockup";
+export { default as AnimatedCounter } from "./AnimatedCounter";
+export { default as ParticleCanvas } from "./ParticleCanvas";
+export { default as SectionDots } from "./SectionDots";
+export { default as GoatWidget } from "./GoatWidget";

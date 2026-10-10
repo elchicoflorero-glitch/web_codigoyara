@@ -1,0 +1,2 @@
+ALTER TABLE team_members ADD COLUMN IF NOT EXISTS photo TEXT;
+ALTER TABLE projects     ADD COLUMN IF NOT EXISTS "coverImage" TEXT;

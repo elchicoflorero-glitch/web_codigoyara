@@ -1,0 +1,18 @@
+export type IconName =
+  | "arrow"
+  | "braces"
+  | "check"
+  | "cloud"
+  | "code"
+  | "commerce"
+  | "database"
+  | "layers"
+  | "link"
+  | "menu"
+  | "mobile"
+  | "rocket"
+  | "shield"
+  | "spark"
+  | "support"
+  | "web"
+  | "x";

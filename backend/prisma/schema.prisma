@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Quotes ────────────────────────────────────────────────
+model Quote {
+  id          String      @id @default(cuid())
+  name        String
+  company     String
+  email       String
+  phone       String?
+  projectType String
+  budget      String
+  message     String
+  status      QuoteStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("quotes")
+}
+
+enum QuoteStatus {
+  PENDING
+  CONTACTED
+  IN_PROGRESS
+  CLOSED
+}
+
+// ── Projects ──────────────────────────────────────────────
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  label       String
+  type        String   @default("dashboard")
+  text        String
+  stack       String[] 
+  tagline     String
+  challenge   String   @db.Text
+  solution    String   @db.Text
+  duration    String
+  year        String
+  color       String   @default("#246bfe")
+  published   Boolean  @default(false)
+  coverImage  String?  @db.Text   // base64 data URL
+  images      String[] @default([])  // additional base64 images
+  videos      String[] @default([])  // video URLs (YouTube, Vimeo, etc.)
+  results     ProjectResult[]
+  features    String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model ProjectResult {
+  id        String  @id @default(cuid())
+  metric    String
+  label     String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  @@map("project_results")
+}
+
+// ── Team ──────────────────────────────────────────────────
+model TeamMember {
+  id        String  @id @default(cuid())
+  name      String
+  role      String
+  bio       String  @db.Text
+  initials  String
+  color     String  @default("#246bfe")
+  linkedin  String  @default("#")
+  photo     String? @db.Text   // base64 data URL
+  order     Int     @default(0)
+  active    Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("team_members")
+}
+
+// ── Testimonials ──────────────────────────────────────────
+model Testimonial {
+  id        String             @id @default(cuid())
+  name      String
+  role      String
+  company   String
+  quote     String             @db.Text
+  rating    Int                @default(5)
+  status    TestimonialStatus  @default(PENDING)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  @@map("testimonials")
+}
+
+enum TestimonialStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ── Site Config ───────────────────────────────────────────
+// Tabla de clave-valor para configuración global del sitio.
+// Se usa un único registro con id = "global".
+model SiteConfig {
+  id        String   @id @default("global")
+  activeBg  String   @default("hero")
+  updatedAt DateTime @updatedAt
+
+  @@map("site_config")
+}
+
+// ── Admin ─────────────────────────────────────────────────
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  @@map("admins")
+}

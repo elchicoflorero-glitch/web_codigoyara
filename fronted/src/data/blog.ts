@@ -1,0 +1,32 @@
+export const blogPosts = [
+  {
+    category: "Arquitectura",
+    readTime: "5 min",
+    title: "Cómo elegir la arquitectura correcta para tu SaaS desde el día uno",
+    excerpt: "La decisión de arquitectura inicial puede determinar cuánto cuesta escalar tu producto. Te explicamos los patrones que usamos y por qué.",
+    date: "12 Sep 2026",
+    slug: "arquitectura-saas",
+    gradient: "linear-gradient(135deg, #0f2251, #1a4db5)",
+    tag: "{ }",
+  },
+  {
+    category: "Producto",
+    readTime: "4 min",
+    title: "De MVP a producto: las 5 decisiones técnicas que lo cambian todo",
+    excerpt: "Lanzar rápido está bien. Pero hay decisiones que si las tomás tarde, te cuestan el triple. Acá las más importantes que vemos en proyectos reales.",
+    date: "28 Ago 2026",
+    slug: "mvp-a-producto",
+    gradient: "linear-gradient(135deg, #0a2a1f, #0d7a4e)",
+    tag: "◇",
+  },
+  {
+    category: "Mobile",
+    readTime: "6 min",
+    title: "Flutter en 2026: por qué sigue siendo nuestra primera opción para apps",
+    excerpt: "React Native, nativo o Flutter. Después de docenas de proyectos móviles, esta es nuestra conclusión honesta sobre cuándo usar cada uno.",
+    date: "10 Ago 2026",
+    slug: "flutter-2026",
+    gradient: "linear-gradient(135deg, #1a0a38, #5b21b6)",
+    tag: "⌁",
+  },
+];
