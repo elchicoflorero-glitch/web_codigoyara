@@ -6,7 +6,7 @@
 .al-page {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  background: #0606e5;
+  background: #12121c;
   padding: 24px;
   position: relative;
   overflow: hidden;
