@@ -30,8 +30,8 @@ export default function IdeaToProduct() {
         >
           <div className="itp-video-frame">
             <iframe
-              src="https://www.youtube.com/embed/RoFfYHUSyYw?rel=0&modestbranding=1&color=white"
-              title="Nuvora — Mirá lo que construimos"
+              src="https://www.youtube.com/embed/HI2AqFP9C84"
+              title="Nuvora — Mira lo que construimos"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
