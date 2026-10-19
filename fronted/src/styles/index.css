@@ -1715,6 +1715,7 @@ button:disabled { opacity: .7; cursor: not-allowed; transform: none !important; 
 .contact-form input,
 .contact-form select,
 .contact-form textarea { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.1); color: white; }
+.contact-form select option { background: #1a2340; color: white; }
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus { border-color: #ffd21f; box-shadow: 0 0 0 3px rgba(255,210,31,.1); }

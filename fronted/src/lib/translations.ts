@@ -190,7 +190,7 @@ const es: Translations = {
     submitBtn: "Enviar solicitud", sending: "Enviando...", sent: "Solicitud enviada",
     orManually: "o completá manualmente",
     projectOptions: ["Aplicación web", "Aplicación móvil", "Software a medida", "E-commerce", "Plataforma SaaS"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Más de USD 50k"],
+    budgetOptions: ["Menos de USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Más de USD 50k"],
     toastTitle: "¡Solicitud enviada!", toastText: "Te contactaremos en menos de 24 horas.",
   },
   footer: {
@@ -296,7 +296,7 @@ const en: Translations = {
     submitBtn: "Send request", sending: "Sending...", sent: "Request sent",
     orManually: "or fill in manually",
     projectOptions: ["Web application", "Mobile app", "Custom software", "E-commerce", "SaaS platform"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "More than USD 50k"],
+    budgetOptions: ["Under USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "More than USD 50k"],
     toastTitle: "Request sent!", toastText: "We'll contact you within 24 hours.",
   },
   footer: {
@@ -402,7 +402,7 @@ const sv: Translations = {
     submitBtn: "Skicka förfrågan", sending: "Skickar...", sent: "Förfrågan skickad",
     orManually: "eller fyll i manuellt",
     projectOptions: ["Webbapplikation", "Mobilapp", "Skräddarsydd mjukvara", "E-handel", "SaaS-plattform"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mer än USD 50k"],
+    budgetOptions: ["Under USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mer än USD 50k"],
     toastTitle: "Förfrågan skickad!", toastText: "Vi kontaktar dig inom 24 timmar.",
   },
   footer: {
@@ -508,7 +508,7 @@ const pt: Translations = {
     submitBtn: "Enviar solicitação", sending: "Enviando...", sent: "Solicitação enviada",
     orManually: "ou preencha manualmente",
     projectOptions: ["Aplicação web", "Aplicativo móvel", "Software personalizado", "E-commerce", "Plataforma SaaS"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mais de USD 50k"],
+    budgetOptions: ["Menos de USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mais de USD 50k"],
     toastTitle: "Solicitação enviada!", toastText: "Entraremos em contato em menos de 24 horas.",
   },
   footer: {
@@ -614,7 +614,7 @@ const fr: Translations = {
     submitBtn: "Envoyer la demande", sending: "Envoi en cours...", sent: "Demande envoyée",
     orManually: "ou remplissez manuellement",
     projectOptions: ["Application web", "Application mobile", "Logiciel sur mesure", "E-commerce", "Plateforme SaaS"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Plus de USD 50k"],
+    budgetOptions: ["Moins de USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Plus de USD 50k"],
     toastTitle: "Demande envoyée !", toastText: "Nous vous contacterons dans moins de 24 heures.",
   },
   footer: {
@@ -720,7 +720,7 @@ const de: Translations = {
     submitBtn: "Anfrage senden", sending: "Wird gesendet...", sent: "Anfrage gesendet",
     orManually: "oder manuell ausfüllen",
     projectOptions: ["Webanwendung", "Mobile App", "Maßgeschneiderte Software", "E-Commerce", "SaaS-Plattform"],
-    budgetOptions: ["USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mehr als USD 50k"],
+    budgetOptions: ["Unter USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Mehr als USD 50k"],
     toastTitle: "Anfrage gesendet!", toastText: "Wir melden uns innerhalb von 24 Stunden.",
   },
   footer: {

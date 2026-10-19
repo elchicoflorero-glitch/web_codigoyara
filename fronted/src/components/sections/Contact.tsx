@@ -30,6 +30,18 @@ export default function Contact() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm(prev => ({ ...prev, [field]: e.target.value }));
 
+  const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Strip digits, allow only letters, spaces, accents and common name chars
+    const val = e.target.value.replace(/[0-9]/g, "");
+    setForm(prev => ({ ...prev, name: val }));
+  };
+
+  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Allow only digits, +, spaces, hyphens and parentheses
+    const val = e.target.value.replace(/[^0-9+\s\-()]/g, "");
+    setForm(prev => ({ ...prev, phone: val }));
+  };
+
   const handleGoogleSuccess = useCallback((name: string, email: string) => {
     setForm(prev => ({ ...prev, name, email }));
   }, []);
@@ -106,12 +118,12 @@ export default function Contact() {
             </div>
           </div>
           <div className="form-row">
-            <label>{tr.fieldName}<input required placeholder={tr.fieldName} value={form.name} onChange={update("name")} disabled={isLoading} /></label>
+            <label>{tr.fieldName}<input required placeholder={tr.fieldName} value={form.name} onChange={handleNameInput} disabled={isLoading} /></label>
             <label>{tr.fieldCompany}<input required placeholder={tr.fieldCompany} value={form.company} onChange={update("company")} disabled={isLoading} /></label>
           </div>
           <div className="form-row">
             <label>{tr.fieldEmail}<input required type="email" placeholder="nombre@empresa.com" value={form.email} onChange={update("email")} disabled={isLoading} /></label>
-            <label>{tr.fieldPhone}<input type="tel" placeholder="+54 9..." value={form.phone} onChange={update("phone")} disabled={isLoading} /></label>
+            <label>{tr.fieldPhone}<input type="tel" placeholder="+54 9..." value={form.phone} onChange={handlePhoneInput} disabled={isLoading} /></label>
           </div>
           <div className="form-row">
             <label>
