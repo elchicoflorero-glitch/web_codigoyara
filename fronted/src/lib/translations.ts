@@ -190,7 +190,7 @@ const es: Translations = {
     submitBtn: "Enviar solicitud", sending: "Enviando...", sent: "Solicitud enviada",
     orManually: "o completá manualmente",
     projectOptions: ["Aplicación web", "Aplicación móvil", "Software a medida", "E-commerce", "Plataforma SaaS"],
-    budgetOptions: ["Menos de USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Más de USD 50k"],
+    budgetOptions: ["Hasta USD 100", "USD 100 — 3k", "USD 3k — 8k", "USD 8k — 20k", "USD 20k — 50k", "Más de USD 50k"],
     toastTitle: "¡Solicitud enviada!", toastText: "Te contactaremos en menos de 24 horas.",
   },
   footer: {
