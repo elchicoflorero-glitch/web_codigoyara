@@ -1,11 +1,81 @@
 <!doctype html>
-<html lang="<!-- figma:lang -->">
+<html lang="es">
   <head>
-    <!-- figma:head-start -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── Primary SEO ──────────────────────────────────────── -->
+    <title>Nuvora — Desarrollo de Software a Medida | Apps Web y Móviles</title>
+    <meta name="description" content="Nuvora diseña y desarrolla software a medida, aplicaciones web, móviles y plataformas SaaS. Equipo especializado en Lima, Perú y Estocolmo, Suecia. Solicita tu cotización gratis." />
+    <meta name="keywords" content="desarrollo de software, aplicaciones web, apps móviles, software a medida, desarrollo SaaS, empresa de tecnología Lima, desarrollo React, Node.js, Nuvora" />
+    <meta name="author" content="Nuvora" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://webcodigoyara-production.up.railway.app" />
+
+    <!-- ── Open Graph (Facebook, LinkedIn, WhatsApp) ────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://webcodigoyara-production.up.railway.app" />
+    <meta property="og:title" content="Nuvora — Desarrollo de Software a Medida" />
+    <meta property="og:description" content="Diseñamos y desarrollamos productos digitales que impulsan negocios hacia el futuro. Apps web, móviles y software a medida. Lima, Perú · Estocolmo, Suecia." />
+    <meta property="og:image" content="https://webcodigoyara-production.up.railway.app/og-image.png" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:site_name" content="Nuvora" />
+
+    <!-- ── Twitter Card ──────────────────────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://webcodigoyara-production.up.railway.app" />
+    <meta name="twitter:title" content="Nuvora — Desarrollo de Software a Medida" />
+    <meta name="twitter:description" content="Diseñamos y desarrollamos productos digitales que impulsan negocios hacia el futuro." />
+    <meta name="twitter:image" content="https://webcodigoyara-production.up.railway.app/og-image.png" />
+
+    <!-- ── Schema.org — Organización ────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Nuvora",
+      "url": "https://webcodigoyara-production.up.railway.app",
+      "logo": "https://webcodigoyara-production.up.railway.app/src/assets/logo.svg",
+      "description": "Empresa de desarrollo de software a medida especializada en aplicaciones web, móviles y plataformas SaaS.",
+      "email": "hola@nuvora.dev",
+      "telephone": "+51994841296",
+      "address": [
+        {
+          "@type": "PostalAddress",
+          "addressLocality": "Lima",
+          "addressCountry": "PE"
+        },
+        {
+          "@type": "PostalAddress",
+          "addressLocality": "Estocolmo",
+          "addressCountry": "SE"
+        }
+      ],
+      "sameAs": [],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "description": "Worldwide remote services"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de desarrollo de software",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo de aplicaciones web" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo de aplicaciones móviles" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Software a medida" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plataformas SaaS" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "E-commerce" } }
+        ]
+      }
+    }
+    </script>
+
+    <!-- ── Favicon ───────────────────────────────────────────── -->
     <link rel="icon" type="image/svg+xml" href="/src/assets/logo-icon.svg" />
-    <title><!-- figma:title --></title>
+
+    <!-- ── Performance ──────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <script>
       // Prevent browser scroll restoration — always start at top
       if ('scrollRestoration' in history) {
@@ -13,12 +83,9 @@
       }
       window.scrollTo(0, 0);
     </script>
-    <!-- figma:head-end -->
   </head>
   <body>
-    <!-- figma:body-start -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- figma:body-end -->
   </body>
 </html>
