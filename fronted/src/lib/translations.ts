@@ -151,12 +151,12 @@ const es: Translations = {
     text: "Diseñamos productos digitales que resuelven desafíos reales, simplifican la operación y crean nuevas oportunidades de crecimiento.",
     cta: "Solicitar este servicio",
     items: [
+      { title: "Integración de APIs", text: "Conectamos herramientas y servicios para automatizar procesos sin fricción." },
       { title: "Desarrollo Web", text: "Aplicaciones web modernas, rápidas y escalables que convierten visitas en oportunidades." },
       { title: "Aplicaciones móviles", text: "Apps Android y multiplataforma con experiencias fluidas, intuitivas y consistentes." },
       { title: "Sistemas empresariales", text: "Plataformas para administrar procesos, equipos, operaciones y datos críticos." },
       { title: "Software a medida", text: "Soluciones diseñadas desde cero para adaptarse a la lógica real de tu empresa." },
       { title: "E-commerce", text: "Tiendas virtuales modernas, seguras y optimizadas para vender más." },
-      { title: "Integración de APIs", text: "Conectamos herramientas y servicios para automatizar procesos sin fricción." },
     ],
   },
   projects: {
@@ -257,12 +257,12 @@ const en: Translations = {
     text: "We design digital products that solve real challenges, simplify operations and create new growth opportunities.",
     cta: "Request this service",
     items: [
+      { title: "API Integration", text: "We connect tools and services to automate processes without friction." },
       { title: "Web Development", text: "Modern, fast and scalable web applications that turn visitors into opportunities." },
       { title: "Mobile Apps", text: "Android and cross-platform apps with smooth, intuitive and consistent experiences." },
       { title: "Enterprise Systems", text: "Platforms to manage processes, teams, operations and critical data." },
       { title: "Custom Software", text: "Solutions designed from scratch to adapt to your company's real logic." },
       { title: "E-commerce", text: "Modern, secure online stores optimized to sell more." },
-      { title: "API Integration", text: "We connect tools and services to automate processes without friction." },
     ],
   },
   projects: {
@@ -363,12 +363,12 @@ const sv: Translations = {
     text: "Vi designar digitala produkter som löser verkliga utmaningar, förenklar driften och skapar nya tillväxtmöjligheter.",
     cta: "Begär denna tjänst",
     items: [
+      { title: "API-integration", text: "Vi kopplar samman verktyg och tjänster för att automatisera processer utan friktion." },
       { title: "Webbutveckling", text: "Moderna, snabba och skalbara webbapplikationer som omvandlar besökare till möjligheter." },
       { title: "Mobilappar", text: "Android- och plattformsoberoende appar med smidiga, intuitiva och konsekventa upplevelser." },
       { title: "Företagssystem", text: "Plattformar för att hantera processer, team, verksamhet och kritisk data." },
       { title: "Skräddarsydd mjukvara", text: "Lösningar designade från grunden för att anpassa sig till ditt företags verkliga logik." },
       { title: "E-handel", text: "Moderna, säkra nätbutiker optimerade för att sälja mer." },
-      { title: "API-integration", text: "Vi kopplar samman verktyg och tjänster för att automatisera processer utan friktion." },
     ],
   },
   projects: {
@@ -469,12 +469,12 @@ const pt: Translations = {
     text: "Projetamos produtos digitais que resolvem desafios reais, simplificam as operações e criam novas oportunidades de crescimento.",
     cta: "Solicitar este serviço",
     items: [
+      { title: "Integração de APIs", text: "Conectamos ferramentas e serviços para automatizar processos sem atrito." },
       { title: "Desenvolvimento Web", text: "Aplicações web modernas, rápidas e escaláveis que convertem visitas em oportunidades." },
       { title: "Aplicativos móveis", text: "Apps Android e multiplataforma com experiências fluidas, intuitivas e consistentes." },
       { title: "Sistemas empresariais", text: "Plataformas para gerenciar processos, equipes, operações e dados críticos." },
       { title: "Software personalizado", text: "Soluções projetadas do zero para se adaptar à lógica real da sua empresa." },
       { title: "E-commerce", text: "Lojas virtuais modernas, seguras e otimizadas para vender mais." },
-      { title: "Integração de APIs", text: "Conectamos ferramentas e serviços para automatizar processos sem atrito." },
     ],
   },
   projects: {
@@ -575,12 +575,12 @@ const fr: Translations = {
     text: "Nous concevons des produits numériques qui résolvent des défis réels, simplifient les opérations et créent de nouvelles opportunités de croissance.",
     cta: "Demander ce service",
     items: [
+      { title: "Intégration d'APIs", text: "Nous connectons les outils et services pour automatiser les processus sans friction." },
       { title: "Développement Web", text: "Applications web modernes, rapides et évolutives qui transforment les visites en opportunités." },
       { title: "Applications mobiles", text: "Apps Android et multiplateformes avec des expériences fluides, intuitives et cohérentes." },
       { title: "Systèmes d'entreprise", text: "Plateformes pour gérer les processus, les équipes, les opérations et les données critiques." },
       { title: "Logiciel sur mesure", text: "Solutions conçues de zéro pour s'adapter à la logique réelle de votre entreprise." },
       { title: "E-commerce", text: "Boutiques en ligne modernes, sécurisées et optimisées pour vendre davantage." },
-      { title: "Intégration d'APIs", text: "Nous connectons les outils et services pour automatiser les processus sans friction." },
     ],
   },
   projects: {
@@ -681,12 +681,12 @@ const de: Translations = {
     text: "Wir entwerfen digitale Produkte, die echte Herausforderungen lösen, den Betrieb vereinfachen und neue Wachstumschancen schaffen.",
     cta: "Diesen Service anfragen",
     items: [
+      { title: "API-Integration", text: "Wir verbinden Tools und Dienste zur reibungslosen Prozessautomatisierung." },
       { title: "Webentwicklung", text: "Moderne, schnelle und skalierbare Webanwendungen, die Besucher in Chancen umwandeln." },
       { title: "Mobile Apps", text: "Android- und plattformübergreifende Apps mit reibungslosen, intuitiven Erlebnissen." },
       { title: "Unternehmenssysteme", text: "Plattformen zur Verwaltung von Prozessen, Teams, Betrieb und kritischen Daten." },
       { title: "Maßgeschneiderte Software", text: "Lösungen, die von Grund auf entwickelt wurden, um sich an die reale Logik Ihres Unternehmens anzupassen." },
       { title: "E-Commerce", text: "Moderne, sichere Online-Shops, optimiert für mehr Umsatz." },
-      { title: "API-Integration", text: "Wir verbinden Tools und Dienste zur reibungslosen Prozessautomatisierung." },
     ],
   },
   projects: {
