@@ -1,12 +1,12 @@
 import type { IconName } from "@/types";
 
 export const services: { icon: IconName; title: string; text: string }[] = [
+  { icon: "link", title: "Integración de APIs", text: "Conectamos herramientas y servicios para automatizar procesos sin fricción." },
   { icon: "web", title: "Desarrollo Web", text: "Aplicaciones web modernas, rápidas y escalables que convierten visitas en oportunidades." },
   { icon: "mobile", title: "Aplicaciones móviles", text: "Apps Android y multiplataforma con experiencias fluidas, intuitivas y consistentes." },
   { icon: "database", title: "Sistemas empresariales", text: "Plataformas para administrar procesos, equipos, operaciones y datos críticos." },
   { icon: "braces", title: "Software a medida", text: "Soluciones diseñadas desde cero para adaptarse a la lógica real de tu empresa." },
   { icon: "commerce", title: "E-commerce", text: "Tiendas virtuales modernas, seguras y optimizadas para vender más." },
-  { icon: "link", title: "Integración de APIs", text: "Conectamos herramientas y servicios para automatizar procesos sin fricción." },
 ];
 
 export const technologies: string[] = [

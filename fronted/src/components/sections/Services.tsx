@@ -15,7 +15,7 @@ import chipUrl   from "@/assets/chip.glb?url";
 
 import { services as staticServices } from "@/data";
 
-const SERVICE_MODELS = [webUrl, mobileUrl, serverUrl, laptopUrl, cartUrl, chipUrl];
+const SERVICE_MODELS = [chipUrl, webUrl, mobileUrl, serverUrl, laptopUrl, cartUrl];
 const RADIUS = 210;
 const CENTER = 260;
 
