@@ -514,6 +514,112 @@ function drawStorm(ctx: CanvasRenderingContext2D, w: number, h: number, t: numbe
   const ambAlpha = 0.03 + Math.max(0, Math.sin(t * 5)) * 0.06;
   ctx.fillStyle = `rgba(100,150,255,${ambAlpha})`; ctx.fillRect(0, 0, w, h);
 }
+
+// ── Variant 12: Playa Animada ──
+function drawBeach(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  const sky = ctx.createLinearGradient(0, 0, 0, h * 0.6);
+  sky.addColorStop(0, "#1a6fa8"); sky.addColorStop(0.5, "#4ba3d3"); sky.addColorStop(1, "#f0c97a");
+  ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+  // Sun
+  const sunX = w * 0.75, sunY = h * 0.14;
+  const sunG = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, h * 0.12);
+  sunG.addColorStop(0, "rgba(255,240,180,1)"); sunG.addColorStop(0.4, "rgba(255,200,80,0.8)"); sunG.addColorStop(1, "rgba(255,160,30,0)");
+  ctx.fillStyle = sunG; ctx.beginPath(); ctx.arc(sunX, sunY, h * 0.12, 0, Math.PI * 2); ctx.fill();
+  ctx.save(); ctx.translate(sunX, sunY);
+  for (let r = 0; r < 8; r++) {
+    const ang = (r / 8) * Math.PI * 2 + t * 0.2;
+    ctx.strokeStyle = "rgba(255,230,100,0.18)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(ang) * h * 0.18, Math.sin(ang) * h * 0.18); ctx.stroke();
+  }
+  ctx.restore();
+  // Clouds
+  const drawCloud = (cx: number, cy: number, sc: number, al: number) => {
+    ctx.save(); ctx.globalAlpha = al; ctx.fillStyle = "rgba(255,255,255,0.85)";
+    [{ x: 0, y: 0, r: 18 }, { x: 22, y: -6, r: 22 }, { x: 46, y: 0, r: 18 }, { x: 68, y: -4, r: 16 }, { x: 90, y: 2, r: 14 }].forEach(p => {
+      ctx.beginPath(); ctx.arc(cx + p.x * sc, cy + p.y * sc, p.r * sc, 0, Math.PI * 2); ctx.fill();
+    }); ctx.restore();
+  };
+  drawCloud(w * 0.05 + Math.sin(t * 0.08) * 15, h * 0.08, 0.9, 0.7);
+  drawCloud(w * 0.35 + Math.sin(t * 0.06 + 1) * 12, h * 0.06, 0.7, 0.6);
+  drawCloud(w * 0.55 + Math.sin(t * 0.07 + 2) * 10, h * 0.12, 0.8, 0.5);
+  // Sea
+  const seaTop = h * 0.48;
+  const sea = ctx.createLinearGradient(0, seaTop, 0, h * 0.7);
+  sea.addColorStop(0, "#1a7abf"); sea.addColorStop(0.5, "#1560a0"); sea.addColorStop(1, "#0d3d6e");
+  ctx.fillStyle = sea; ctx.fillRect(0, seaTop, w, h * 0.22);
+  for (let wi = 0; wi < 4; wi++) {
+    const wy = seaTop + wi * h * 0.04 + Math.sin(t * 0.8 + wi) * 4;
+    ctx.beginPath(); ctx.moveTo(0, wy);
+    for (let x = 0; x <= w; x += 8) ctx.lineTo(x, wy + Math.sin((x / w) * Math.PI * 4 + t * (1.2 + wi * 0.3)) * (4 + wi * 2));
+    ctx.strokeStyle = `rgba(255,255,255,${0.15 + wi * 0.08})`; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  // Shore foam
+  const shoreY = h * 0.68;
+  for (let x = 0; x < w; x += 6) {
+    ctx.beginPath(); ctx.arc(x, shoreY + Math.sin(x * 0.05 + t * 1.5) * 5, 3, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${0.3 + Math.sin(x * 0.08 + t) * 0.2})`; ctx.fill();
+  }
+  // Sand
+  const sand = ctx.createLinearGradient(0, h * 0.67, 0, h);
+  sand.addColorStop(0, "#e8c97a"); sand.addColorStop(0.3, "#d4a85a"); sand.addColorStop(1, "#c49040");
+  ctx.fillStyle = sand; ctx.fillRect(0, h * 0.67, w, h * 0.33);
+  for (let i = 0; i < 80; i++) {
+    ctx.beginPath(); ctx.arc((i * 173.1) % w, h * 0.67 + (i * 97.3) % (h * 0.33), 0.8, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(150,90,20,0.2)"; ctx.fill();
+  }
+  // Umbrellas
+  const drawUmbrella = (ux: number, uy: number, color: string) => {
+    ctx.strokeStyle = "#8B6914"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(ux, uy); ctx.lineTo(ux, uy + h * 0.12); ctx.stroke();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(ux, uy, h * 0.07, h * 0.035, 0, Math.PI, 0); ctx.fill();
+    for (let s = 0; s < 5; s++) {
+      const ang = Math.PI + (s / 4) * Math.PI;
+      ctx.fillStyle = s % 2 === 0 ? "rgba(255,255,255,0.3)" : "transparent";
+      ctx.beginPath(); ctx.moveTo(ux, uy); ctx.arc(ux, uy, h * 0.07, ang, ang + Math.PI / 4); ctx.closePath(); ctx.fill();
+    }
+  };
+  drawUmbrella(w * 0.18, h * 0.72, "#e84040");
+  drawUmbrella(w * 0.42, h * 0.74, "#40a0e8");
+  drawUmbrella(w * 0.88, h * 0.71, "#f0c030");
+  // Sunbathers
+  const drawSunbather = (px: number, py: number, flip: boolean) => {
+    ctx.save(); ctx.fillStyle = "#3a2010";
+    if (flip) { ctx.scale(-1, 1); px = -px; }
+    ctx.beginPath(); ctx.ellipse(px, py, h * 0.04, h * 0.012, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(px + h * 0.05, py - h * 0.005, h * 0.013, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(px + h * 0.01, py - h * 0.01); ctx.lineTo(px + h * 0.02, py - h * 0.04);
+    ctx.strokeStyle = "#3a2010"; ctx.lineWidth = 3; ctx.stroke(); ctx.restore();
+  };
+  drawSunbather(w * 0.15, h * 0.81, false); drawSunbather(w * 0.22, h * 0.84, true);
+  drawSunbather(w * 0.38, h * 0.83, false); drawSunbather(w * 0.82, h * 0.80, true); drawSunbather(w * 0.92, h * 0.83, false);
+  // Running girl
+  const runX = ((t * 40) % (w + 80)) - 40, runY = h * 0.76, lp = t * 5;
+  ctx.save(); ctx.fillStyle = "#2a1408"; ctx.strokeStyle = "#2a1408";
+  ctx.beginPath(); ctx.ellipse(runX, runY - h * 0.04, h * 0.012, h * 0.028, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(runX, runY - h * 0.075, h * 0.015, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(runX, runY - h * 0.075);
+  ctx.quadraticCurveTo(runX - h * 0.02, runY - h * 0.085, runX - h * 0.04 + Math.sin(lp) * 5, runY - h * 0.065);
+  ctx.strokeStyle = "#4a2010"; ctx.lineWidth = 3; ctx.stroke();
+  ctx.lineWidth = 3; ctx.strokeStyle = "#2a1408";
+  const l1 = Math.sin(lp) * h * 0.04, l2 = Math.sin(lp + Math.PI) * h * 0.04;
+  ctx.beginPath(); ctx.moveTo(runX, runY - h * 0.015); ctx.lineTo(runX + l1 * 0.5, runY + h * 0.025); ctx.lineTo(runX + l1, runY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(runX, runY - h * 0.015); ctx.lineTo(runX + l2 * 0.5, runY + h * 0.025); ctx.lineTo(runX + l2, runY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(runX, runY - h * 0.04); ctx.lineTo(runX + Math.sin(lp + Math.PI) * h * 0.025, runY - h * 0.02); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(runX, runY - h * 0.04); ctx.lineTo(runX + Math.sin(lp) * h * 0.025, runY - h * 0.02); ctx.stroke();
+  ctx.restore();
+  // Seagulls
+  for (let i = 0; i < 5; i++) {
+    const bx = (w * (0.1 + i * 0.18) + Math.sin(t * 0.4 + i) * 20) % w;
+    const by = h * (0.2 + i * 0.04) + Math.sin(t * 0.6 + i * 1.3) * 8;
+    ctx.strokeStyle = "rgba(20,20,40,0.6)"; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(bx - 10, by + Math.sin(t * 3 + i) * 5); ctx.quadraticCurveTo(bx, by, bx + 10, by + Math.sin(t * 3 + i) * 5); ctx.stroke();
+  }
+  // Reflection
+  const rg = ctx.createLinearGradient(0, seaTop, 0, h * 0.68);
+  rg.addColorStop(0, "rgba(255,200,80,0.12)"); rg.addColorStop(1, "transparent");
+  ctx.fillStyle = rg; ctx.fillRect(w * 0.5, seaTop, w * 0.5, h * 0.2);
+}
+
 export const BG_VARIANTS: BgVariant[] = [
   { id: "hero",      label: "Hero — Space",      description: "Fondo actual del hero: partículas violeta/cian, glows, wireframe 3D y grid.",  draw: drawHero },
   { id: "aurora",    label: "Aurora Boreal",      description: "Luces del norte: bandas verdes y azules ondeando sobre cielo estrellado.",     draw: drawAurora },
@@ -526,6 +632,7 @@ export const BG_VARIANTS: BgVariant[] = [
   { id: "cyberpunk", label: "Cyberpunk City",     description: "Ciudad futurista con edificios de neón, autos voladores y lluvia.",            draw: drawCyberpunk },
   { id: "galaxy",    label: "Galaxia Espiral",    description: "Galaxia animada con brazos estelares, núcleo brillante y fondo estrellado.",   draw: drawGalaxy },
   { id: "storm",     label: "Tormenta Eléctrica", description: "Tormenta oscura con rayos, lluvia intensa y destellos de luz.",               draw: drawStorm },
+  { id: "beach",     label: "Playa Animada",      description: "Playa tropical con chica corriendo, personas tomando sol, olas y gaviotas.", draw: drawBeach },
 ];
 
 export function getBgVariant(id: BgId): BgVariant {

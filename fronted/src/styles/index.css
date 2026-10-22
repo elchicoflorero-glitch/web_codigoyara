@@ -1816,6 +1816,9 @@ button:disabled { opacity: .7; cursor: not-allowed; transform: none !important; 
 .global-three-bg.bg-flowers {
   background: #0d0508;
 }
+.global-three-bg.bg-beach {
+  background: #1a6fa8;
+}
 .global-three-bg .three-bg {
   width: 100%;
   height: 100%;

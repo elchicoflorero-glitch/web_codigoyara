@@ -8,7 +8,7 @@ import { BgProvider, useBg } from "@/lib/BgContext";
 function GlobalBg() {
   const { activeBg } = useBg();
   return (
-    <div className={`global-three-bg${activeBg === "white" ? " bg-white" : activeBg === "flowers" ? " bg-flowers" : ""}`}>
+    <div className={`global-three-bg${activeBg === "white" ? " bg-white" : activeBg === "flowers" ? " bg-flowers" : activeBg === "beach" ? " bg-beach" : ""}`}>
       <ThreeBackground />
     </div>
   );
