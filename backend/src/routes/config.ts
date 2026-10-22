@@ -23,7 +23,7 @@ router.get("/", async (_req: Request, res: Response) => {
 router.put("/", requireAuth, async (req: Request, res: Response) => {
   const { activeBg } = req.body as { activeBg?: string };
 
-  const VALID_VARIANTS = ["hero", "aurora", "neon", "ocean", "nebula", "matrix", "white", "flowers", "cyberpunk", "galaxy", "storm", "beach"];
+  const VALID_VARIANTS = ["hero", "aurora", "neon", "ocean", "nebula", "matrix", "white", "flowers", "cyberpunk", "galaxy", "storm", "beach", "lofi"];
   if (!activeBg || !VALID_VARIANTS.includes(activeBg)) {
     res.status(400).json({ success: false, message: "activeBg inválido" });
     return;
