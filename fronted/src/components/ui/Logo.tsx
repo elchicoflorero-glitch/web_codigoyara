@@ -10,10 +10,10 @@ export default function Logo({ variant = "light", height = 34 }: LogoProps) {
   const src = variant === "dark" ? logoDark : logoLight;
 
   return (
-    <a href="#inicio" aria-label="Nuvora, inicio" style={{ display: "inline-flex", alignItems: "center" }}>
+    <a href="#inicio" aria-label="CodigoYara, inicio" style={{ display: "inline-flex", alignItems: "center" }}>
       <img
         src={src}
-        alt="Nuvora"
+        alt="CodigoYara"
         height={height}
         width="auto"
         style={{ height, width: "auto" }}
