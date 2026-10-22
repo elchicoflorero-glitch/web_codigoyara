@@ -874,14 +874,13 @@ button:disabled { opacity: .7; cursor: not-allowed; transform: none !important; 
 .hero-tags-v2 span {
   color: #a0b0c8;
   padding: 5px 10px;
-  background: rgba(139,92,246,.08);
-  border: 1px solid rgba(139,92,246,.2);
+  background: transparent;
+  border: none;
   border-radius: 999px;
 }
 .hero-tags-v2 span:hover {
-  background: rgba(139,92,246,.15);
-  border-color: rgba(139,92,246,.4);
-  transition: background .2s, border-color .2s;
+  color: white;
+  transition: color .2s;
 }
 .hero-tags-v2 svg { color: var(--v3); }
 
