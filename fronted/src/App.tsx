@@ -1,6 +1,7 @@
 import Router from "./router";
 import useMagneticCursor from "@/hooks/useMagneticCursor";
 import ThreeBackground from "@/components/ui/ThreeBackground";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { LangProvider } from "@/lib/LangContext";
 import { BgProvider } from "@/lib/BgContext";
 
@@ -14,6 +15,7 @@ export default function App() {
           <ThreeBackground />
         </div>
         <Router />
+        <WhatsAppButton />
       </LangProvider>
     </BgProvider>
   );

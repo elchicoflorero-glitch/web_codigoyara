@@ -482,6 +482,69 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .toast-close { background: none; border: 0; color: #8ea5c0; padding: 4px; display: grid; place-items: center; border-radius: 6px; transition: color .2s, background .2s; }
 .toast-close:hover { color: white; background: rgba(255,255,255,.08); }
 
+/* ── WhatsApp FAB ─────────────────────────────────────────── */
+.whatsapp-fab {
+  position: fixed;
+  left: 24px;
+  bottom: 32px;
+  z-index: 9999;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, .45);
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, .6);
+}
+.whatsapp-fab:hover .whatsapp-fab-tooltip { opacity: 1; transform: translateX(0); pointer-events: none; }
+.whatsapp-fab-tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateX(-6px) translateY(-50%);
+  background: #1a2340;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+.whatsapp-fab-tooltip::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right-color: #1a2340;
+}
+/* pulse ring */
+.whatsapp-fab::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, .5);
+  animation: wa-pulse 2s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: .7; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
 /* ── Responsive nuevas secciones ─────────────────────────── */
 @media (max-width: 1024px) {
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
