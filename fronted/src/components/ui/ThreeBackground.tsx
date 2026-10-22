@@ -157,6 +157,32 @@ function CanvasBg({ mountRef, bgId }: { mountRef: React.RefObject<HTMLDivElement
 export default function ThreeBackground() {
   const { activeBg } = useBg();
   const mountRef = useRef<HTMLDivElement>(null);
+  const variant = getBgVariant(activeBg);
+
+  // YouTube video background
+  if (variant.type === "youtube" && variant.youtubeId) {
+    return (
+      <div className="three-bg" aria-hidden="true"
+        style={{ position: "absolute", inset: 0, overflow: "hidden" }}
+      >
+        <iframe
+          src={`https://www.youtube.com/embed/${variant.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${variant.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+          allow="autoplay; encrypted-media"
+          style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            width: "177.78vh", height: "100vh",
+            minWidth: "100%", minHeight: "56.25vw",
+            transform: "translate(-50%, -50%)",
+            border: "none",
+            pointerEvents: "none",
+            opacity: 0.6,
+          }}
+          title="bg-video"
+        />
+      </div>
+    );
+  }
 
   return (
     <div ref={mountRef} className="three-bg" aria-hidden="true"

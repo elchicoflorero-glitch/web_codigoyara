@@ -6,6 +6,8 @@ export interface BgVariant {
   id: BgId;
   label: string;
   description: string;
+  type?: "canvas" | "youtube";
+  youtubeId?: string;
   draw: DrawFn;
 }
 
@@ -633,6 +635,7 @@ export const BG_VARIANTS: BgVariant[] = [
   { id: "galaxy",    label: "Galaxia Espiral",    description: "Galaxia animada con brazos estelares, núcleo brillante y fondo estrellado.",   draw: drawGalaxy },
   { id: "storm",     label: "Tormenta Eléctrica", description: "Tormenta oscura con rayos, lluvia intensa y destellos de luz.",               draw: drawStorm },
   { id: "beach",     label: "Playa Animada",      description: "Playa tropical con chica corriendo, personas tomando sol, olas y gaviotas.", draw: drawBeach },
+  { id: "lofi",      label: "Lo-Fi Chill ▶ Video", description: "Video lofi en vivo como fondo: ciudad animada con música relajante.", type: "youtube", youtubeId: "rwvktpF6_pY", draw: () => {} },
 ];
 
 export function getBgVariant(id: BgId): BgVariant {

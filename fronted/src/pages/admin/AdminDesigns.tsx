@@ -4,6 +4,56 @@ import { useBg } from "@/lib/BgContext";
 import { BG_VARIANTS, type BgVariant } from "@/lib/bgVariants";
 import type { BgId } from "@/lib/BgContext";
 
+/* ── YouTube thumbnail card ──────────────────────────────── */
+function YoutubeBgCard({
+  variant,
+  isActive,
+  onApply,
+}: {
+  variant: BgVariant;
+  isActive: boolean;
+  onApply: (id: BgId) => void;
+}) {
+  return (
+    <div className={`bg-variant-card ${isActive ? "bg-variant-active" : ""}`}>
+      {isActive && <div className="bg-variant-badge">✓ Aplicado</div>}
+
+      <div className="bg-variant-canvas" style={{ position: "relative", overflow: "hidden", background: "#000" }}>
+        <img
+          src={`https://img.youtube.com/vi/${variant.youtubeId}/hqdefault.jpg`}
+          alt={variant.label}
+          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
+        />
+        <div style={{
+          position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+          background: "rgba(0,0,0,0.3)",
+        }}>
+          <span style={{ fontSize: 32, opacity: 0.9 }}>▶</span>
+        </div>
+        <div style={{
+          position: "absolute", bottom: 6, right: 8,
+          background: "rgba(255,0,0,0.85)", color: "#fff",
+          fontSize: 9, fontWeight: 700, padding: "2px 5px", borderRadius: 3,
+        }}>YouTube</div>
+      </div>
+
+      <div className="bg-variant-info">
+        <div className="bg-variant-info-row">
+          <span className="bg-variant-label">{variant.label}</span>
+          <button
+            className={`bg-variant-apply-btn ${isActive ? "applied" : ""}`}
+            onClick={() => onApply(variant.id)}
+            disabled={isActive}
+          >
+            {isActive ? "Activo" : "Aplicar"}
+          </button>
+        </div>
+        <p className="bg-variant-desc">{variant.description}</p>
+      </div>
+    </div>
+  );
+}
+
 /* ── Canvas preview card ─────────────────────────────────── */
 function BgCard({
   variant,
@@ -47,7 +97,6 @@ function BgCard({
 
   return (
     <div className={`bg-variant-card ${isActive ? "bg-variant-active" : ""}`}>
-      {/* Active badge */}
       {isActive && (
         <div className="bg-variant-badge">✓ Aplicado</div>
       )}
@@ -95,14 +144,23 @@ export default function AdminDesigns() {
       </div>
 
       <div className="bg-variants-grid">
-        {BG_VARIANTS.map(v => (
-          <BgCard
-            key={v.id}
-            variant={v}
-            isActive={activeBg === v.id}
-            onApply={handleApply}
-          />
-        ))}
+        {BG_VARIANTS.map(v =>
+          v.type === "youtube" ? (
+            <YoutubeBgCard
+              key={v.id}
+              variant={v}
+              isActive={activeBg === v.id}
+              onApply={handleApply}
+            />
+          ) : (
+            <BgCard
+              key={v.id}
+              variant={v}
+              isActive={activeBg === v.id}
+              onApply={handleApply}
+            />
+          )
+        )}
       </div>
     </AdminLayout>
   );
