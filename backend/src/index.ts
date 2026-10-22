@@ -12,9 +12,24 @@ const app = express();
 const PORT         = parseInt(process.env.PORT ?? "3000", 10);
 const FRONTEND_URL = process.env.FRONTEND_URL ?? "http://localhost:8443";
 
+// Allow both www and non-www versions of the frontend URL
+const allowedOrigins = [
+  FRONTEND_URL,
+  FRONTEND_URL.replace("https://www.", "https://"),
+  FRONTEND_URL.replace("https://", "https://www."),
+  "http://localhost:5173",
+  "http://localhost:8443",
+];
+
 // ── Middlewares ──────────────────────────────────────────────
 app.use(cors({
-  origin:  FRONTEND_URL,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
