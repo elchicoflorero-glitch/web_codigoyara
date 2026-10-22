@@ -23,6 +23,7 @@ export default function Navbar() {
 
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [langOpen,  setLangOpen]  = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
   const closeMenu = () => setMenuOpen(false);
@@ -31,6 +32,13 @@ export default function Navbar() {
   // true when we're NOT on the home page
   const isSubPage = location.pathname !== "/";
 
+  // Transparent navbar at top, solid on scroll
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   // Close lang dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -72,7 +80,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="navbar">
+    <header className={`navbar${!scrolled && !isSubPage ? " navbar-transparent" : ""}`}>
       <div className="container nav-inner">
         <Logo />
 

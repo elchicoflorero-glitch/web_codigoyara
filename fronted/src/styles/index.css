@@ -51,7 +51,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .container { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
 .section { padding: 112px 0; }
 
-.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(5,5,5,.9); border-bottom: 1px solid rgba(255,210,31,.12); backdrop-filter: blur(18px); }
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(5,5,5,.9); border-bottom: 1px solid rgba(255,210,31,.12); backdrop-filter: blur(18px); transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease; }
+.navbar-transparent { background: rgba(0,0,0,0.08) !important; border-bottom-color: rgba(255,255,255,0.08) !important; backdrop-filter: blur(4px) !important; }
 .nav-inner { height: 78px; display: flex; align-items: center; justify-content: space-between; }
 .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--white); font-weight: 800; font-size: 22px; letter-spacing: -.7px; }
 .logo-mark { width: 30px; height: 30px; border: 1px solid rgba(255,210,31,.4); border-radius: 9px; display: grid; place-items: center; transform: rotate(45deg); background: linear-gradient(135deg, #ffd21f, #ffe566); box-shadow: 0 0 26px rgba(255,210,31,.45); }
