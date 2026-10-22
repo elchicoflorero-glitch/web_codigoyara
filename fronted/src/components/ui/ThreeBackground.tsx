@@ -158,15 +158,22 @@ export default function ThreeBackground() {
   const { activeBg } = useBg();
   const mountRef = useRef<HTMLDivElement>(null);
   const variant = getBgVariant(activeBg);
+  const { customVideoId } = useBg();
 
-  // YouTube video background
-  if (variant.type === "youtube" && variant.youtubeId) {
+  // YouTube video background (lofi preset or custom)
+  const ytId = variant.type === "youtube"
+    ? variant.youtubeId
+    : activeBg === "custom"
+    ? (customVideoId ?? null)
+    : null;
+
+  if (ytId) {
     return (
       <div className="three-bg" aria-hidden="true"
         style={{ position: "absolute", inset: 0, overflow: "hidden" }}
       >
         <iframe
-          src={`https://www.youtube.com/embed/${variant.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${variant.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+          src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
           allow="autoplay; encrypted-media"
           style={{
             position: "absolute",
