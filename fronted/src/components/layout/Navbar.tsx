@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Logo, Icon } from "@/components/ui";
 import { useLang, type Lang } from "@/lib/LangContext";
 import { t } from "@/lib/translations";
@@ -18,6 +18,8 @@ export default function Navbar() {
   const { lang, setLang } = useLang();
   const tr = t(lang).nav;
   const active = useActiveSection();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [langOpen,  setLangOpen]  = useState(false);
@@ -25,6 +27,9 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
   const current = LANGUAGES.find(l => l.code === lang)!;
+
+  // true when we're NOT on the home page
+  const isSubPage = location.pathname !== "/";
 
   // Close lang dropdown on outside click
   useEffect(() => {
@@ -49,8 +54,21 @@ export default function Navbar() {
     if (!href.startsWith("#")) return;
     e.preventDefault();
     closeMenu();
-    const el = document.getElementById(href.slice(1));
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+
+    const sectionId = href.slice(1);
+
+    if (isSubPage) {
+      // Navigate to home and then scroll to the section
+      navigate("/");
+      // Wait for the page to mount before scrolling
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 120);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -72,7 +90,7 @@ export default function Navbar() {
               {label}
             </a>
           ))}
-          <a className="button button-primary mobile-cta" href="#contacto" onClick={closeMenu}>
+          <a className="button button-primary mobile-cta" href="#contacto" onClick={e => handleNav(e, "#contacto")}>
             {tr.cta}
           </a>
         </nav>
@@ -130,7 +148,7 @@ export default function Navbar() {
             </svg>
           </Link>
 
-          <a className="button button-primary desktop-cta" href="#contacto">
+          <a className="button button-primary desktop-cta" href="#contacto" onClick={e => handleNav(e, "#contacto")}>
             {tr.cta} <Icon name="arrow" size={18} />
           </a>
         </div>
