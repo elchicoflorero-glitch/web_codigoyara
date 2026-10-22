@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://webcodigoyara-production.up.railway.app/sitemap.xml
+Sitemap: https://www.codigoyara.com/sitemap.xml
