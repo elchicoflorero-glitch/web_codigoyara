@@ -383,16 +383,149 @@ function drawFlowers(ctx: CanvasRenderingContext2D, w: number, h: number, t: num
   }
 }
 
-// ── Export ────────────────────────────────────────────────
+// ── Variant 9: Cyberpunk City ──
+function drawCyberpunk(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  ctx.fillStyle = "#000208"; ctx.fillRect(0, 0, w, h);
+  // City skyline
+  const buildings = [
+    { x: 0.02, w: 0.06, h: 0.55 }, { x: 0.09, w: 0.04, h: 0.45 }, { x: 0.14, w: 0.07, h: 0.65 },
+    { x: 0.22, w: 0.05, h: 0.50 }, { x: 0.28, w: 0.08, h: 0.70 }, { x: 0.37, w: 0.04, h: 0.42 },
+    { x: 0.42, w: 0.09, h: 0.75 }, { x: 0.52, w: 0.05, h: 0.58 }, { x: 0.58, w: 0.07, h: 0.68 },
+    { x: 0.66, w: 0.04, h: 0.48 }, { x: 0.71, w: 0.08, h: 0.72 }, { x: 0.80, w: 0.05, h: 0.52 },
+    { x: 0.86, w: 0.06, h: 0.62 }, { x: 0.93, w: 0.07, h: 0.44 },
+  ];
+  buildings.forEach(b => {
+    const bx = w * b.x, bh = h * b.h, bw2 = w * b.w;
+    ctx.fillStyle = "#050a15";
+    ctx.fillRect(bx, h - bh, bw2, bh);
+    // Windows
+    for (let wx = bx + 3; wx < bx + bw2 - 3; wx += 6) {
+      for (let wy = h - bh + 4; wy < h - 10; wy += 8) {
+        if (Math.random() > 0.4) {
+          ctx.fillStyle = Math.random() > 0.5 ? "rgba(0,200,255,0.6)" : "rgba(255,50,150,0.5)";
+          ctx.fillRect(wx, wy, 3, 4);
+        }
+      }
+    }
+  });
+  // Neon glow at horizon
+  const horizon = h * 0.25;
+  const hg = ctx.createLinearGradient(0, horizon - 20, 0, horizon + 40);
+  hg.addColorStop(0, "transparent");
+  hg.addColorStop(0.5, "rgba(0,200,255,0.12)");
+  hg.addColorStop(1, "transparent");
+  ctx.fillStyle = hg; ctx.fillRect(0, horizon - 20, w, 60);
+  // Flying cars
+  for (let i = 0; i < 8; i++) {
+    const cx = ((i * 0.13 * w + t * (20 + i * 5)) % (w + 40)) - 20;
+    const cy = h * (0.15 + i * 0.03);
+    ctx.fillStyle = i % 2 === 0 ? "rgba(0,220,255,0.8)" : "rgba(255,60,180,0.8)";
+    ctx.beginPath(); ctx.ellipse(cx, cy, 8, 2, 0, 0, Math.PI * 2); ctx.fill();
+    const trail = ctx.createLinearGradient(cx - 30, cy, cx, cy);
+    trail.addColorStop(0, "transparent");
+    trail.addColorStop(1, i % 2 === 0 ? "rgba(0,220,255,0.4)" : "rgba(255,60,180,0.4)");
+    ctx.fillStyle = trail; ctx.fillRect(cx - 30, cy - 1, 30, 2);
+  }
+  // Rain
+  ctx.strokeStyle = "rgba(0,150,255,0.15)"; ctx.lineWidth = 0.5;
+  for (let i = 0; i < 60; i++) {
+    const rx = (i * 17.3 + t * 30) % w;
+    const ry = (i * 31.7 + t * 80) % h;
+    ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx - 2, ry + 12); ctx.stroke();
+  }
+}
+
+// ── Variant 10: Galaxia Espiral ──
+function drawGalaxy(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  ctx.fillStyle = "#020010"; ctx.fillRect(0, 0, w, h);
+  const cx = w * 0.5, cy = h * 0.5;
+  // Arms
+  const ARMS = 3, STARS_PER_ARM = 200;
+  const armColors = ["rgba(180,120,255,", "rgba(100,180,255,", "rgba(255,180,100,"];
+  for (let arm = 0; arm < ARMS; arm++) {
+    for (let i = 0; i < STARS_PER_ARM; i++) {
+      const frac = i / STARS_PER_ARM;
+      const angle = frac * Math.PI * 4 + (arm / ARMS) * Math.PI * 2 + t * 0.05;
+      const radius = frac * Math.min(w, h) * 0.42;
+      const spread = radius * 0.12;
+      const sx = cx + Math.cos(angle) * radius + (Math.random() - 0.5) * spread;
+      const sy = cy + Math.sin(angle) * radius * 0.55 + (Math.random() - 0.5) * spread;
+      const alpha = 0.15 + frac * 0.6;
+      const size = 0.4 + frac * 1.2;
+      ctx.beginPath(); ctx.arc(sx, sy, size, 0, Math.PI * 2);
+      ctx.fillStyle = armColors[arm] + alpha + ")"; ctx.fill();
+    }
+  }
+  // Core glow
+  const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.12);
+  cg.addColorStop(0, "rgba(255,240,200,0.9)");
+  cg.addColorStop(0.3, "rgba(255,180,80,0.4)");
+  cg.addColorStop(1, "transparent");
+  ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(cx, cy, Math.min(w, h) * 0.12, 0, Math.PI * 2); ctx.fill();
+  // Background stars
+  for (let i = 0; i < 200; i++) {
+    const sa = 0.1 + Math.sin(t * 2 + i * 0.5) * 0.08;
+    ctx.beginPath(); ctx.arc((i * 173.1) % w, (i * 113.7) % h, 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${sa})`; ctx.fill();
+  }
+}
+
+// ── Variant 11: Tormenta Eléctrica ──
+function drawStorm(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  ctx.fillStyle = "#020408"; ctx.fillRect(0, 0, w, h);
+  // Storm clouds
+  const clouds2 = [
+    { x: 0.2, y: 0.15, r: 0.25 }, { x: 0.6, y: 0.1, r: 0.3 }, { x: 0.85, y: 0.2, r: 0.2 },
+  ];
+  clouds2.forEach((c, i) => {
+    const flicker = Math.sin(t * 8 + i * 2) > 0.7 ? 0.15 : 0.05;
+    const cg = ctx.createRadialGradient(w * c.x, h * c.y, 0, w * c.x, h * c.y, Math.min(w, h) * c.r);
+    cg.addColorStop(0, `rgba(150,180,255,${flicker + 0.05})`);
+    cg.addColorStop(1, "transparent");
+    ctx.fillStyle = cg; ctx.fillRect(0, 0, w, h);
+  });
+  // Lightning bolts
+  const drawBolt = (sx: number, sy: number, ex: number, ey: number, alpha: number) => {
+    ctx.save(); ctx.globalAlpha = alpha;
+    ctx.strokeStyle = "rgba(200,220,255,1)"; ctx.lineWidth = 1.5;
+    ctx.shadowColor = "rgba(100,150,255,0.8)"; ctx.shadowBlur = 8;
+    ctx.beginPath(); ctx.moveTo(sx, sy);
+    let cx2 = sx, cy2 = sy;
+    const steps = 8;
+    for (let s = 1; s <= steps; s++) {
+      const nx = sx + (ex - sx) * (s / steps) + (Math.random() - 0.5) * 40;
+      const ny = sy + (ey - sy) * (s / steps);
+      ctx.lineTo(nx, ny); cx2 = nx; cy2 = ny;
+    }
+    ctx.stroke(); ctx.restore();
+    void cx2; void cy2;
+  };
+  if (Math.sin(t * 3) > 0.85) drawBolt(w * 0.3, 0, w * 0.25, h * 0.6, 0.9);
+  if (Math.sin(t * 2.5 + 1) > 0.88) drawBolt(w * 0.7, 0, w * 0.72, h * 0.5, 0.8);
+  if (Math.sin(t * 4 + 2) > 0.9) drawBolt(w * 0.55, 0, w * 0.5, h * 0.7, 0.7);
+  // Rain heavy
+  ctx.strokeStyle = "rgba(150,180,255,0.2)"; ctx.lineWidth = 0.7;
+  for (let i = 0; i < 120; i++) {
+    const rx = (i * 13.7 + t * 50) % w;
+    const ry = (i * 27.3 + t * 150) % h;
+    ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx - 3, ry + 18); ctx.stroke();
+  }
+  // Ambient light flicker
+  const ambAlpha = 0.03 + Math.max(0, Math.sin(t * 5)) * 0.06;
+  ctx.fillStyle = `rgba(100,150,255,${ambAlpha})`; ctx.fillRect(0, 0, w, h);
+}
 export const BG_VARIANTS: BgVariant[] = [
-  { id: "hero",    label: "Hero — Space",    description: "Fondo actual del hero: partículas violeta/cian, glows, wireframe 3D y grid.",  draw: drawHero },
-  { id: "aurora",  label: "Aurora Boreal",   description: "Luces del norte: bandas verdes y azules ondeando sobre cielo estrellado.",     draw: drawAurora },
-  { id: "neon",    label: "Neon Grid",       description: "Cyberpunk: grilla en perspectiva con sol de neón rosa/naranja.",               draw: drawNeonGrid },
-  { id: "ocean",   label: "Deep Ocean",      description: "Fondo marino: cáustica, partículas bioluminiscentes y medusa flotante.",       draw: drawOcean },
-  { id: "nebula",  label: "Golden Nebula",   description: "Nebulosa cálida: polvo dorado, estrellas titilantes y estrella fugaz.",        draw: drawNebula },
-  { id: "matrix",  label: "Matrix Rain",     description: "Lluvia de código: caracteres japoneses y binarios cayendo en verde.",          draw: drawMatrix },
-  { id: "white",   label: "Blanco Limpio",   description: "Fondo blanco puro con textura sutil de puntos grises. Ideal para propuestas formales.", draw: drawWhite },
-  { id: "flowers", label: "Jardín de Rosas", description: "Fondo oscuro romántico con rosas y pétalos animados en rosas, rojos y carmín.", draw: drawFlowers },
+  { id: "hero",      label: "Hero — Space",      description: "Fondo actual del hero: partículas violeta/cian, glows, wireframe 3D y grid.",  draw: drawHero },
+  { id: "aurora",    label: "Aurora Boreal",      description: "Luces del norte: bandas verdes y azules ondeando sobre cielo estrellado.",     draw: drawAurora },
+  { id: "neon",      label: "Neon Grid",          description: "Cyberpunk: grilla en perspectiva con sol de neón rosa/naranja.",               draw: drawNeonGrid },
+  { id: "ocean",     label: "Deep Ocean",         description: "Fondo marino: cáustica, partículas bioluminiscentes y medusa flotante.",       draw: drawOcean },
+  { id: "nebula",    label: "Golden Nebula",      description: "Nebulosa cálida: polvo dorado, estrellas titilantes y estrella fugaz.",        draw: drawNebula },
+  { id: "matrix",    label: "Matrix Rain",        description: "Lluvia de código: caracteres japoneses y binarios cayendo en verde.",          draw: drawMatrix },
+  { id: "white",     label: "Blanco Limpio",      description: "Fondo blanco puro con textura sutil de puntos grises. Ideal para propuestas formales.", draw: drawWhite },
+  { id: "flowers",   label: "Jardín de Rosas",    description: "Fondo oscuro romántico con rosas y pétalos animados en rosas, rojos y carmín.", draw: drawFlowers },
+  { id: "cyberpunk", label: "Cyberpunk City",     description: "Ciudad futurista con edificios de neón, autos voladores y lluvia.",            draw: drawCyberpunk },
+  { id: "galaxy",    label: "Galaxia Espiral",    description: "Galaxia animada con brazos estelares, núcleo brillante y fondo estrellado.",   draw: drawGalaxy },
+  { id: "storm",     label: "Tormenta Eléctrica", description: "Tormenta oscura con rayos, lluvia intensa y destellos de luz.",               draw: drawStorm },
 ];
 
 export function getBgVariant(id: BgId): BgVariant {
