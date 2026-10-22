@@ -1,17 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
-    <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#0ea5e9"/>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="100%" stop-color="#0d1a2e"/>
+    </linearGradient>
+    <linearGradient id="bracket-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd21f"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
     </linearGradient>
   </defs>
-  <!-- Diamond bg -->
-  <rect x="1.5" y="1.5" width="29" height="29" rx="8"
-    transform="rotate(45 16 16)"
-    fill="url(#icon-grad)"/>
-  <!-- Inner square -->
-  <rect x="9" y="9" width="14" height="14" rx="3.5"
-    fill="none" stroke="white" stroke-width="2.2" opacity="0.9"/>
-  <!-- Center dot -->
-  <circle cx="16" cy="16" r="2.2" fill="white"/>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="url(#bg-grad)"/>
+
+  <!-- Outer glow ring -->
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.5"
+    fill="none" stroke="rgba(255,210,31,0.18)" stroke-width="1"/>
+
+  <!-- Left code bracket < (golden) -->
+  <polyline
+    points="11,9 7,16 11,23"
+    stroke="url(#bracket-grad)"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <!-- Y shape in white — stem + two arms -->
+  <!-- Left arm -->
+  <line x1="17" y1="9" x2="21.5" y2="15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Right arm -->
+  <line x1="26" y1="9" x2="21.5" y2="15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Stem -->
+  <line x1="21.5" y1="15" x2="21.5" y2="23" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
 </svg>
