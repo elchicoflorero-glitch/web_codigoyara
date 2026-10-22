@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Syne:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -18,7 +18,6 @@
   --radius:      22px;
   --font-body:    "Inter", system-ui, sans-serif;
   --font-heading: "Manrope", system-ui, sans-serif;
-  --font-display: "Syne", "Manrope", system-ui, sans-serif;
 
   /* v2 palette aliases — reused throughout */
   --v:  #ffd21f;
@@ -758,7 +757,7 @@ button:disabled { opacity: .7; cursor: not-allowed; transform: none !important; 
 }
 
 /* ── Hero headings v2 ─────────────────────────────────────── */
-.hero-h1-v2 { margin: 26px 0 24px; max-width: 700px; font-size: clamp(46px,5vw,70px); line-height:1.04; letter-spacing:-2.5px; font-weight:800; font-family: var(--font-display); }
+.hero-h1-v2 { margin: 26px 0 24px; max-width: 700px; font-size: clamp(46px,5vw,70px); line-height:1.04; letter-spacing:-3.5px; font-weight:800; }
 .hero-desc-v2 { max-width:580px; color:#a0b0c8; font-size:17px; line-height:1.8; }
 
 /* ── Status pill v2 ───────────────────────────────────────── */

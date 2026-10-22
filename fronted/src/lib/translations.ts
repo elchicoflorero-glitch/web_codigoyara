@@ -130,7 +130,7 @@ const es: Translations = {
     team: "Equipo", contact: "Contacto", cta: "Solicitar cotización",
   },
   hero: {
-    pill: "Software que mueve negocios reales",
+    pill: "Convertimos complejidad en progreso",
     h1a: "Transformamos ideas en software que",
     h1verb: "hace crecer",
     h1b: "tu negocio",
@@ -236,7 +236,7 @@ const en: Translations = {
     team: "Team", contact: "Contact", cta: "Request a quote",
   },
   hero: {
-    pill: "Software that moves real businesses",
+    pill: "We turn complexity into progress",
     h1a: "We transform ideas into software that",
     h1verb: "grows",
     h1b: "your business",
@@ -342,7 +342,7 @@ const sv: Translations = {
     team: "Team", contact: "Kontakt", cta: "Begär offert",
   },
   hero: {
-    pill: "Mjukvara som driver riktiga företag",
+    pill: "Vi omvandlar komplexitet till framsteg",
     h1a: "Vi förvandlar idéer till mjukvara som",
     h1verb: "växer",
     h1b: "ditt företag",
@@ -448,7 +448,7 @@ const pt: Translations = {
     team: "Equipe", contact: "Contato", cta: "Solicitar orçamento",
   },
   hero: {
-    pill: "Software que move negócios reais",
+    pill: "Transformamos complexidade em progresso",
     h1a: "Transformamos ideias em software que",
     h1verb: "faz crescer",
     h1b: "seu negócio",
@@ -554,7 +554,7 @@ const fr: Translations = {
     team: "Équipe", contact: "Contact", cta: "Demander un devis",
   },
   hero: {
-    pill: "Des logiciels qui font avancer les vrais business",
+    pill: "Nous transformons la complexité en progrès",
     h1a: "Nous transformons les idées en logiciels qui",
     h1verb: "font grandir",
     h1b: "votre entreprise",
@@ -660,7 +660,7 @@ const de: Translations = {
     team: "Team", contact: "Kontakt", cta: "Angebot anfordern",
   },
   hero: {
-    pill: "Software, das echte Unternehmen voranbringt",
+    pill: "Wir verwandeln Komplexität in Fortschritt",
     h1a: "Wir verwandeln Ideen in Software, die",
     h1verb: "wächst",
     h1b: "Ihr Unternehmen",
