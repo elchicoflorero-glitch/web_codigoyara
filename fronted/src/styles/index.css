@@ -762,13 +762,13 @@ button:disabled { opacity: .7; cursor: not-allowed; transform: none !important; 
 
 /* ── Status pill v2 ───────────────────────────────────────── */
 .status-pill-v2 {
-  background: rgba(124,58,237,.12);
-  border: 1px solid rgba(139,92,246,.3);
+  background: transparent;
+  border: none;
   color: #c4b5fd;
+  padding-left: 0;
 }
 .status-pill-v2 span {
-  background: var(--v3);
-  box-shadow: 0 0 0 5px rgba(139,92,246,.15);
+  display: none;
 }
 
 /* ── Button glow ──────────────────────────────────────────── */
