@@ -1,6 +1,6 @@
 export const testimonials = [
   {
-    quote: "Nuvora transformó nuestra operación. En 3 meses teníamos un sistema que antes nos tomaba horas hacer a mano, ahora corre solo.",
+    quote: "CodigoYara transformó nuestra operación. En 3 meses teníamos un sistema que antes nos tomaba horas hacer a mano, ahora corre solo.",
     name: "Martín Rodríguez",
     role: "CEO",
     company: "LogiTrack",
@@ -18,7 +18,7 @@ export const testimonials = [
     rating: 5,
   },
   {
-    quote: "Lanzamos nuestra app móvil en tiempo récord. El equipo de Nuvora entiende el negocio, no solo la tecnología.",
+    quote: "Lanzamos nuestra app móvil en tiempo récord. El equipo de CodigoYara entiende el negocio, no solo la tecnología.",
     name: "Sebastián Peña",
     role: "Founder",
     company: "Pulse App",
@@ -36,7 +36,7 @@ export const testimonials = [
     rating: 5,
   },
   {
-    quote: "Trabajar con Nuvora fue una experiencia muy diferente a otras agencias. Siempre disponibles y con foco en resultados.",
+    quote: "Trabajar con CodigoYara fue una experiencia muy diferente a otras agencias. Siempre disponibles y con foco en resultados.",
     name: "Diego Fuentes",
     role: "Director de Operaciones",
     company: "Nexo ERP",
@@ -45,7 +45,7 @@ export const testimonials = [
     rating: 5,
   },
   {
-    quote: "Nuestra tienda online aumentó un 40% las conversiones tras el rediseño y optimización que hizo Nuvora.",
+    quote: "Nuestra tienda online aumentó un 40% las conversiones tras el rediseño y optimización que hizo CodigoYara.",
     name: "Laura Ibáñez",
     role: "E-commerce Manager",
     company: "StyleHub",

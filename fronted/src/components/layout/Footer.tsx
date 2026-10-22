@@ -45,7 +45,7 @@ export default function Footer() {
 
         <div>
           <h4>{tr.colContact}</h4>
-          <a href="mailto:hola@nuvora.dev">hola@nuvora.dev</a>
+          <a href="mailto:ventas@codigoyara.com">ventas@codigoyara.com</a>
           <span>🇵🇪 Lima, Perú</span>
           <span>🇸🇪 Estocolmo, Suecia</span>
           <a href="tel:+51994841296">+51 994 841 296</a>
@@ -54,7 +54,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} Nuvora. {tr.rights}</span>
+        <span>© {new Date().getFullYear()} CodigoYara. {tr.rights}</span>
         <div>
           <Link to="/privacidad">{tr.privacy}</Link>
           <Link to="/terminos">{tr.terms}</Link>

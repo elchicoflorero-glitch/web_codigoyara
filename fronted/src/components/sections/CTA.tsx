@@ -55,7 +55,7 @@ export default function CTA() {
             <a href="#contacto" className="button button-white button-large">
               {nav.cta} <Icon name="arrow" size={18} />
             </a>
-            <a href="mailto:hola@nuvora.dev" className="button button-dark-ghost button-large">
+            <a href="mailto:hola@codigoyara.com" className="button button-dark-ghost button-large">
               Hablar con nosotros
             </a>
           </div>

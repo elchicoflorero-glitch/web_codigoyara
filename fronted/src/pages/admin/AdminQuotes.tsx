@@ -145,7 +145,7 @@ export default function AdminQuotes() {
                         {label}
                       </button>
                     ))}
-                    <a href={`mailto:${q.email}?subject=Re: Cotización ${q.projectType} - Nuvora`}
+                    <a href={`mailto:${q.email}?subject=Re: Cotización ${q.projectType} - CodigoYara`}
                        className="admin-btn-sm green">
                       Responder →
                     </a>

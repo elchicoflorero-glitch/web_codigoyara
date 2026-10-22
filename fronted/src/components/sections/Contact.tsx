@@ -97,7 +97,7 @@ export default function Contact() {
           <div className="contact-details">
             <div>
               <span><Icon name="link" /></span>
-              <p><small>{tr.writeUs}</small><a href="mailto:hola@nuvora.dev">hola@nuvora.dev</a></p>
+              <p><small>{tr.writeUs}</small><a href="mailto:hola@codigoyara.com">hola@codigoyara.com</a></p>
             </div>
             <div>
               <span><Icon name="support" /></span>

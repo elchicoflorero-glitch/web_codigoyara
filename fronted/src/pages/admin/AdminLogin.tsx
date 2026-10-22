@@ -50,7 +50,7 @@ export default function AdminLogin() {
         {/* Header */}
         <div className="al-header">
           <div className="al-logo">
-            nuvora<span>.</span>
+            CodigoYara
           </div>
           <div className="al-badge">Admin Panel</div>
         </div>
@@ -74,7 +74,7 @@ export default function AdminLogin() {
                 autoComplete="username"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="admin@nuvora.dev"
+                placeholder="admin@codigoyara.com"
                 disabled={loading}
                 className="al-input"
               />
@@ -153,7 +153,7 @@ export default function AdminLogin() {
 
         {/* Footer */}
         <p className="al-footer-note">
-          Acceso restringido · Solo equipo Nuvora
+          Acceso restringido · Solo equipo CodigoYara
         </p>
       </div>
     </div>

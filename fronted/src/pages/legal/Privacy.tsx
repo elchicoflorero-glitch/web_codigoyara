@@ -26,7 +26,7 @@ const sections = [
   },
   {
     title: "6. Sus derechos",
-    content: `Usted tiene derecho a acceder, rectificar, eliminar o limitar el tratamiento de sus datos personales. Para ejercer estos derechos, contáctenos en hola@nuvora.dev. Responderemos a su solicitud dentro de los plazos legalmente establecidos.`,
+    content: `Usted tiene derecho a acceder, rectificar, eliminar o limitar el tratamiento de sus datos personales. Para ejercer estos derechos, contáctenos en hola@codigoyara.com. Responderemos a su solicitud dentro de los plazos legalmente establecidos.`,
   },
   {
     title: "7. Retención de datos",
@@ -55,7 +55,7 @@ export default function Privacy() {
               </Link>
               <span className="legal-label">Legal</span>
               <h1>Política de Privacidad</h1>
-              <p>Última actualización: Octubre 2026 · Nuvora — Lima, Perú & Estocolmo, Suecia</p>
+              <p>Última actualización: Octubre 2026 · CodigoYara — Lima, Perú & Estocolmo, Suecia</p>
             </motion.div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function Privacy() {
 
           <div className="legal-contact">
             <h3>¿Preguntas sobre privacidad?</h3>
-            <p>Si tenés preguntas sobre esta política, contactanos en <a href="mailto:hola@nuvora.dev">hola@nuvora.dev</a></p>
+            <p>Si tenés preguntas sobre esta política, contactanos en <a href="mailto:hola@codigoyara.com">hola@codigoyara.com</a></p>
           </div>
         </div>
       </main>

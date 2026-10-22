@@ -31,7 +31,7 @@ export default function IdeaToProduct() {
           <div className="itp-video-frame">
             <iframe
               src="https://www.youtube.com/embed/HI2AqFP9C84"
-              title="Nuvora — Mira lo que construimos"
+              title="CodigoYara — Mira lo que construimos"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

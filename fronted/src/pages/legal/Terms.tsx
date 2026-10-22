@@ -6,15 +6,15 @@ import { Icon } from "@/components/ui";
 const sections = [
   {
     title: "1. Aceptación de los términos",
-    content: `Al acceder y utilizar el sitio web de Nuvora, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguno de estos términos, le pedimos que no utilice nuestros servicios.`,
+    content: `Al acceder y utilizar el sitio web de CodigoYara, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguno de estos términos, le pedimos que no utilice nuestros servicios.`,
   },
   {
     title: "2. Descripción de servicios",
-    content: `Nuvora ofrece servicios de desarrollo de software, aplicaciones web y móviles, sistemas empresariales, e-commerce e integración de APIs. Los detalles específicos de cada proyecto se definen en contratos individuales con cada cliente.`,
+    content: `CodigoYara ofrece servicios de desarrollo de software, aplicaciones web y móviles, sistemas empresariales, e-commerce e integración de APIs. Los detalles específicos de cada proyecto se definen en contratos individuales con cada cliente.`,
   },
   {
     title: "3. Propiedad intelectual",
-    content: `El contenido de este sitio web, incluyendo textos, imágenes, logos y código, es propiedad de Nuvora y está protegido por leyes de derechos de autor. El código y productos desarrollados para clientes son propiedad del cliente tras el pago completo, según lo estipulado en cada contrato.`,
+    content: `El contenido de este sitio web, incluyendo textos, imágenes, logos y código, es propiedad de CodigoYara y está protegido por leyes de derechos de autor. El código y productos desarrollados para clientes son propiedad del cliente tras el pago completo, según lo estipulado en cada contrato.`,
   },
   {
     title: "4. Uso del sitio",
@@ -22,7 +22,7 @@ const sections = [
   },
   {
     title: "5. Limitación de responsabilidad",
-    content: `Nuvora no será responsable por daños indirectos, incidentales o consecuentes derivados del uso de nuestros servicios. Nuestra responsabilidad máxima no excederá el monto pagado por el servicio específico en cuestión durante los últimos tres meses.`,
+    content: `CodigoYara no será responsable por daños indirectos, incidentales o consecuentes derivados del uso de nuestros servicios. Nuestra responsabilidad máxima no excederá el monto pagado por el servicio específico en cuestión durante los últimos tres meses.`,
   },
   {
     title: "6. Confidencialidad",
@@ -34,7 +34,7 @@ const sections = [
   },
   {
     title: "8. Modificaciones",
-    content: `Nuvora se reserva el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación. El uso continuado del sitio tras las modificaciones implica la aceptación de los nuevos términos.`,
+    content: `CodigoYara se reserva el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación. El uso continuado del sitio tras las modificaciones implica la aceptación de los nuevos términos.`,
   },
   {
     title: "9. Ley aplicable",
@@ -59,7 +59,7 @@ export default function Terms() {
               </Link>
               <span className="legal-label">Legal</span>
               <h1>Términos y Condiciones</h1>
-              <p>Última actualización: Octubre 2026 · Nuvora — Lima, Perú & Estocolmo, Suecia</p>
+              <p>Última actualización: Octubre 2026 · CodigoYara — Lima, Perú & Estocolmo, Suecia</p>
             </motion.div>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function Terms() {
 
           <div className="legal-contact">
             <h3>¿Preguntas sobre nuestros términos?</h3>
-            <p>Escribinos a <a href="mailto:hola@nuvora.dev">hola@nuvora.dev</a></p>
+            <p>Escribinos a <a href="mailto:hola@CodigoYara.dev">hola@CodigoYara.dev</a></p>
           </div>
         </div>
       </main>

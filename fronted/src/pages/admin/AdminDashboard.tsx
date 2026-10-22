@@ -48,7 +48,7 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="admin-page-header">
         <h1>Dashboard</h1>
-        <p>Resumen general de Nuvora</p>
+        <p>Resumen general de CodigoYara</p>
       </div>
       <div className="admin-stats-grid">
         {cards.map(c => (

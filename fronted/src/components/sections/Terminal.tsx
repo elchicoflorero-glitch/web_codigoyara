@@ -17,14 +17,14 @@ const STAGES: Stage[] = [
   {
     screen: "blank",
     lines: [
-      "// Flutter · Nuvora App",
+      "// Flutter · CodigoYara App",
       "import 'package:flutter/material.dart';",
     ],
   },
   {
     screen: "splash",
     lines: [
-      "// Flutter · Nuvora App",
+      "// Flutter · CodigoYara App",
       "import 'package:flutter/material.dart';",
       "",
       "class SplashScreen extends StatelessWidget {",
@@ -35,7 +35,7 @@ const STAGES: Stage[] = [
       "      body: Center(",
       "        child: Column(children: [",
       "          Icon(Icons.bolt, color: Colors.yellow),",
-      "          Text('nuvora.',",
+      "          Text('codigoyara',",
       "            style: TextStyle(color: Colors.white,",
       "              fontSize: 32, fontWeight: FontWeight.w800)),",
       "        ]),",
@@ -153,7 +153,7 @@ function PhoneSplash() {
         transition={{ type: "spring", stiffness: 200, damping: 16 }}
       >
         <div className="ph-splash-icon">⚡</div>
-        <div className="ph-splash-logo">nuvora<span>.</span></div>
+        <div className="ph-splash-logo">CodigoYara</div>
         <div className="ph-splash-sub">Mobile App</div>
       </motion.div>
     </div>
@@ -169,7 +169,7 @@ function PhoneLogin() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="ph-login-logo">nuvora<span>.</span></div>
+        <div className="ph-login-logo">CodigoYara</div>
         <div className="ph-login-title">Bienvenido</div>
         <div className="ph-login-sub">Ingresa a tu cuenta</div>
 
@@ -192,7 +192,7 @@ function PhoneLogin() {
 function PhoneLogging() {
   return (
     <div className="ph-screen ph-logging">
-      <div className="ph-login-logo" style={{ marginBottom: 24 }}>nuvora<span>.</span></div>
+      <div className="ph-login-logo" style={{ marginBottom: 24 }}>CodigoYara</div>
       <motion.div
         className="ph-loading-ring"
         animate={{ rotate: 360 }}
@@ -409,7 +409,7 @@ export default function Terminal() {
               <span className="t-dot t-red" />
               <span className="t-dot t-yellow" />
               <span className="t-dot t-green" />
-              <span className="t-title">main.dart — nuvora_app</span>
+              <span className="t-title">main.dart — codigoyara_app</span>
               <span className="ts-lang">Dart</span>
             </div>
             <div className="ts-editor-body">

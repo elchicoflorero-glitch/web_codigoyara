@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="admin-layout">
       <aside className="admin-sidebar">
-        <div className="admin-sidebar-logo">nuvora<span>.</span><small>admin</small></div>
+        <div className="admin-sidebar-logo">codigoyara<small>admin</small></div>
         <nav className="admin-nav">
           {NAV.map(n => (
             <Link
