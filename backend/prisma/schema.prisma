@@ -111,9 +111,10 @@ enum TestimonialStatus {
 // Tabla de clave-valor para configuración global del sitio.
 // Se usa un único registro con id = "global".
 model SiteConfig {
-  id        String   @id @default("global")
-  activeBg  String   @default("hero")
-  updatedAt DateTime @updatedAt
+  id            String   @id @default("global")
+  activeBg      String   @default("hero")
+  customVideoId String?
+  updatedAt     DateTime @updatedAt
 
   @@map("site_config")
 }
