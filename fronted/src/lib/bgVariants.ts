@@ -204,14 +204,195 @@ function drawMatrix(ctx: CanvasRenderingContext2D, w: number, h: number, t: numb
   }
 }
 
+// ── Variant 7: Blanco Limpio ──
+function drawWhite(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  // White base
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, w, h);
+
+  // Subtle dot grid
+  const spacing = 28;
+  for (let x = spacing; x < w; x += spacing) {
+    for (let y = spacing; y < h; y += spacing) {
+      const pulse = 0.08 + Math.sin(t * 0.4 + x * 0.01 + y * 0.01) * 0.03;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180,185,200,${pulse})`;
+      ctx.fill();
+    }
+  }
+
+  // Soft pastel glow blobs
+  const blobs = [
+    { x: 0.15, y: 0.2,  r: 0.35, c: "rgba(200,190,255," },
+    { x: 0.85, y: 0.15, r: 0.30, c: "rgba(255,200,220," },
+    { x: 0.5,  y: 0.85, r: 0.40, c: "rgba(190,230,255," },
+    { x: 0.75, y: 0.7,  r: 0.25, c: "rgba(210,255,210," },
+  ];
+  blobs.forEach((b, i) => {
+    const bx = w * b.x + Math.sin(t * 0.2 + i) * w * 0.015;
+    const by = h * b.y + Math.cos(t * 0.18 + i) * h * 0.015;
+    const gr = ctx.createRadialGradient(bx, by, 0, bx, by, Math.min(w, h) * b.r);
+    gr.addColorStop(0, b.c + "0.18)");
+    gr.addColorStop(1, b.c + "0)");
+    ctx.fillStyle = gr;
+    ctx.fillRect(0, 0, w, h);
+  });
+}
+
+// ── Variant 8: Jardín de Rosas ──
+function drawFlowers(ctx: CanvasRenderingContext2D, w: number, h: number, t: number) {
+  // Dark romantic background
+  const bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, "#0d0508");
+  bg.addColorStop(0.5, "#160a10");
+  bg.addColorStop(1, "#0a040c");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  // Soft background glow
+  const glow = ctx.createRadialGradient(w * 0.5, h * 0.4, 0, w * 0.5, h * 0.4, Math.min(w, h) * 0.6);
+  glow.addColorStop(0, "rgba(180,30,60,0.08)");
+  glow.addColorStop(1, "transparent");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, w, h);
+
+  // Draw a single rose at position cx,cy with given size
+  const drawRose = (cx: number, cy: number, size: number, rot: number, alpha: number) => {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(cx, cy);
+    ctx.rotate(rot);
+
+    const petalCount = 5;
+    const colors = [
+      "rgba(220,40,80,",
+      "rgba(180,20,50,",
+      "rgba(240,80,110,",
+      "rgba(160,10,40,",
+    ];
+
+    // Outer petals
+    for (let p = 0; p < petalCount; p++) {
+      const ang = (p / petalCount) * Math.PI * 2;
+      const px = Math.cos(ang) * size * 0.55;
+      const py = Math.sin(ang) * size * 0.55;
+      const pg = ctx.createRadialGradient(px * 0.4, py * 0.4, 0, px, py, size * 0.55);
+      pg.addColorStop(0, colors[p % colors.length] + "0.9)");
+      pg.addColorStop(0.6, colors[(p + 1) % colors.length] + "0.6)");
+      pg.addColorStop(1, "rgba(100,5,20,0)");
+      ctx.beginPath();
+      ctx.ellipse(px, py, size * 0.32, size * 0.48, ang, 0, Math.PI * 2);
+      ctx.fillStyle = pg;
+      ctx.fill();
+    }
+
+    // Inner petals (slightly rotated)
+    for (let p = 0; p < petalCount; p++) {
+      const ang = (p / petalCount) * Math.PI * 2 + Math.PI / petalCount;
+      const px = Math.cos(ang) * size * 0.28;
+      const py = Math.sin(ang) * size * 0.28;
+      const pg2 = ctx.createRadialGradient(0, 0, 0, px, py, size * 0.3);
+      pg2.addColorStop(0, "rgba(240,100,130,0.85)");
+      pg2.addColorStop(1, "rgba(160,20,50,0)");
+      ctx.beginPath();
+      ctx.ellipse(px, py, size * 0.18, size * 0.28, ang, 0, Math.PI * 2);
+      ctx.fillStyle = pg2;
+      ctx.fill();
+    }
+
+    // Center
+    const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.14);
+    cg.addColorStop(0, "rgba(255,180,180,0.9)");
+    cg.addColorStop(0.5, "rgba(200,60,80,0.7)");
+    cg.addColorStop(1, "rgba(120,10,30,0)");
+    ctx.beginPath();
+    ctx.arc(0, 0, size * 0.14, 0, Math.PI * 2);
+    ctx.fillStyle = cg;
+    ctx.fill();
+
+    ctx.restore();
+  };
+
+  // Stems and leaves
+  const drawStem = (cx: number, cy: number, size: number, alpha: number) => {
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.6;
+    ctx.strokeStyle = "rgba(30,80,30,0.7)";
+    ctx.lineWidth = size * 0.06;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.bezierCurveTo(cx + size * 0.3, cy + size * 0.8, cx - size * 0.2, cy + size * 1.3, cx, cy + size * 1.8);
+    ctx.stroke();
+    // leaf
+    ctx.fillStyle = "rgba(30,100,30,0.5)";
+    ctx.beginPath();
+    ctx.ellipse(cx + size * 0.35, cy + size * 0.9, size * 0.22, size * 0.1, Math.PI * 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // Rose positions — fixed seed for consistency
+  const roses = [
+    { x: 0.15, y: 0.25, s: 0.06, baseRot: 0.2 },
+    { x: 0.82, y: 0.18, s: 0.07, baseRot: -0.4 },
+    { x: 0.5,  y: 0.12, s: 0.05, baseRot: 0.1 },
+    { x: 0.25, y: 0.72, s: 0.065, baseRot: 0.5 },
+    { x: 0.75, y: 0.68, s: 0.07,  baseRot: -0.2 },
+    { x: 0.92, y: 0.5,  s: 0.055, baseRot: 0.3 },
+    { x: 0.08, y: 0.55, s: 0.06,  baseRot: -0.5 },
+    { x: 0.55, y: 0.88, s: 0.07,  baseRot: 0.15 },
+    { x: 0.38, y: 0.45, s: 0.04,  baseRot: 0.8 },
+    { x: 0.65, y: 0.4,  s: 0.04,  baseRot: -0.3 },
+  ];
+
+  roses.forEach((r, i) => {
+    const sz = Math.min(w, h) * r.s;
+    const rx = w * r.x;
+    const ry = h * r.y;
+    const sway = Math.sin(t * 0.3 + i * 1.2) * 0.06;
+    const alpha = 0.55 + Math.sin(t * 0.25 + i * 0.8) * 0.12;
+    drawStem(rx, ry, sz, alpha);
+    drawRose(rx, ry, sz, r.baseRot + sway, alpha);
+  });
+
+  // Floating petals
+  for (let i = 0; i < 30; i++) {
+    const px = (w * ((i * 0.618 + t * 0.015 * (0.3 + (i % 5) * 0.1)) % 1));
+    const py = (h * ((i * 0.382 + t * 0.008 + Math.sin(t * 0.2 + i) * 0.01) % 1));
+    const pr = 2 + (i % 4) * 1.5;
+    const pa = 0.15 + Math.sin(t * 1.5 + i) * 0.1;
+    ctx.save();
+    ctx.globalAlpha = pa;
+    ctx.translate(px, py);
+    ctx.rotate(t * 0.3 + i * 0.7);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, pr * 2, pr, 0, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${200 + i % 55},${30 + i % 40},${60 + i % 30},0.8)`;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Stars/sparkles
+  for (let i = 0; i < 60; i++) {
+    const sa = 0.1 + Math.sin(t * 1.8 + i * 0.7) * 0.08;
+    ctx.beginPath();
+    ctx.arc((i * 157.3) % w, (i * 113.7) % h, 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,200,210,${sa})`;
+    ctx.fill();
+  }
+}
+
 // ── Export ────────────────────────────────────────────────
 export const BG_VARIANTS: BgVariant[] = [
-  { id: "hero",   label: "Hero — Space",    description: "Fondo actual del hero: partículas violeta/cian, glows, wireframe 3D y grid.",  draw: drawHero },
-  { id: "aurora", label: "Aurora Boreal",   description: "Luces del norte: bandas verdes y azules ondeando sobre cielo estrellado.",     draw: drawAurora },
-  { id: "neon",   label: "Neon Grid",       description: "Cyberpunk: grilla en perspectiva con sol de neón rosa/naranja.",               draw: drawNeonGrid },
-  { id: "ocean",  label: "Deep Ocean",      description: "Fondo marino: cáustica, partículas bioluminiscentes y medusa flotante.",       draw: drawOcean },
-  { id: "nebula", label: "Golden Nebula",   description: "Nebulosa cálida: polvo dorado, estrellas titilantes y estrella fugaz.",        draw: drawNebula },
-  { id: "matrix", label: "Matrix Rain",     description: "Lluvia de código: caracteres japoneses y binarios cayendo en verde.",          draw: drawMatrix },
+  { id: "hero",    label: "Hero — Space",    description: "Fondo actual del hero: partículas violeta/cian, glows, wireframe 3D y grid.",  draw: drawHero },
+  { id: "aurora",  label: "Aurora Boreal",   description: "Luces del norte: bandas verdes y azules ondeando sobre cielo estrellado.",     draw: drawAurora },
+  { id: "neon",    label: "Neon Grid",       description: "Cyberpunk: grilla en perspectiva con sol de neón rosa/naranja.",               draw: drawNeonGrid },
+  { id: "ocean",   label: "Deep Ocean",      description: "Fondo marino: cáustica, partículas bioluminiscentes y medusa flotante.",       draw: drawOcean },
+  { id: "nebula",  label: "Golden Nebula",   description: "Nebulosa cálida: polvo dorado, estrellas titilantes y estrella fugaz.",        draw: drawNebula },
+  { id: "matrix",  label: "Matrix Rain",     description: "Lluvia de código: caracteres japoneses y binarios cayendo en verde.",          draw: drawMatrix },
+  { id: "white",   label: "Blanco Limpio",   description: "Fondo blanco puro con textura sutil de puntos grises. Ideal para propuestas formales.", draw: drawWhite },
+  { id: "flowers", label: "Jardín de Rosas", description: "Fondo oscuro romántico con rosas y pétalos animados en rosas, rojos y carmín.", draw: drawFlowers },
 ];
 
 export function getBgVariant(id: BgId): BgVariant {

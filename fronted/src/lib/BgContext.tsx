@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 
-export type BgId = "hero" | "aurora" | "neon" | "ocean" | "nebula" | "matrix";
+export type BgId = "hero" | "aurora" | "neon" | "ocean" | "nebula" | "matrix" | "white" | "flowers";
 
 const STORAGE_KEY = "active_bg";
 const DEFAULT: BgId = "hero";
