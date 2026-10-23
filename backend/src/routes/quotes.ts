@@ -142,7 +142,7 @@ router.post("/", async (req: Request, res: Response) => {
           .catch((err) => console.error("[quotes] Error actualizando status:", err))
       ).catch((err) => console.error("[quotes] Error en auto-reply:", err));
     } else {
-      // Modo manual: solo confirmación estándar al cliente + notificación interna
+      // Modo manual: solo notificación interna, sin correo al cliente
       sendQuoteEmails({
         quoteId:     quote.id,
         name:        data.name,
@@ -152,8 +152,9 @@ router.post("/", async (req: Request, res: Response) => {
         projectType: data.projectType,
         budget:      data.budget,
         message:     data.message,
+        skipConfirmation: true,
       }).catch((err) =>
-        console.error("[quotes] Error enviando emails:", err)
+        console.error("[quotes] Error enviando notificación:", err)
       );
     }
 
