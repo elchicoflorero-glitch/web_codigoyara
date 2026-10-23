@@ -9,17 +9,19 @@ datasource db {
 
 // ── Quotes ────────────────────────────────────────────────
 model Quote {
-  id          String      @id @default(cuid())
-  name        String
-  company     String
-  email       String
-  phone       String?
-  projectType String
-  budget      String
-  message     String
-  status      QuoteStatus @default(PENDING)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id           String      @id @default(cuid())
+  name         String
+  company      String
+  email        String
+  phone        String?
+  projectType  String
+  budget       String
+  message      String
+  status       QuoteStatus @default(PENDING)
+  replyMessage String?     @db.Text
+  repliedAt    DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   @@map("quotes")
 }

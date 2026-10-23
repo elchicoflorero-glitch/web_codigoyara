@@ -12,6 +12,8 @@ interface Quote {
   budget: string;
   message: string;
   status: string;
+  replyMessage?: string;
+  repliedAt?: string;
   createdAt: string;
 }
 
@@ -61,6 +63,9 @@ export default function AdminQuotes() {
   const [replyBody,    setReplyBody]    = useState("");
   const [replySending, setReplySending] = useState(false);
   const [replyMsg,     setReplyMsg]     = useState<{ ok: boolean; text: string } | null>(null);
+
+  // Delete
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -136,6 +141,17 @@ export default function AdminQuotes() {
       setReplyMsg({ ok: false, text: "Error de conexión" });
     } finally {
       setReplySending(false);
+    }
+  };
+
+  const deleteQuote = async (id: string) => {
+    if (!confirm("¿Eliminar esta cotización? Esta acción no se puede deshacer.")) return;
+    setDeletingId(id);
+    try {
+      await authFetch(`/api/quotes/${id}`, { method: "DELETE" });
+      load();
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -237,8 +253,17 @@ export default function AdminQuotes() {
                   </div>
 
                   <div className="admin-quote-message">
-                    <small>Mensaje</small>
+                    <small>Mensaje del cliente</small>
                     <p>{q.message}</p>
+                  </div>
+
+                  {/* Mensaje enviado */}
+                  <div className="admin-quote-message">
+                    <small>Respuesta enviada {q.repliedAt ? `· ${new Date(q.repliedAt).toLocaleString("es-PE")}` : ""}</small>
+                    {q.replyMessage
+                      ? <p style={{ whiteSpace: "pre-wrap" }}>{q.replyMessage}</p>
+                      : <p style={{ color: "#606070", fontStyle: "italic" }}>Sin respuesta enviada aún.</p>
+                    }
                   </div>
 
                   <div className="admin-quote-actions">
@@ -255,6 +280,13 @@ export default function AdminQuotes() {
                     ))}
                     <button className="admin-btn-sm green" onClick={() => openReply(q)}>
                       ✉ Responder
+                    </button>
+                    <button
+                      className="admin-btn-sm danger"
+                      onClick={() => deleteQuote(q.id)}
+                      disabled={deletingId === q.id}
+                    >
+                      {deletingId === q.id ? "Eliminando…" : "🗑 Eliminar"}
                     </button>
                   </div>
                 </div>

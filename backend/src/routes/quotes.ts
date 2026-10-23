@@ -33,6 +33,7 @@ router.put("/:id/status", requireAuth, async (req: AuthRequest, res: Response) =
     res.status(500).json({ success: false, message: "Error interno" });
   }
 });
+
 // POST /api/quotes/:id/reply — admin only
 const replySchema = z.object({
   subject: z.string().min(1, "El asunto es requerido"),
@@ -60,18 +61,30 @@ router.post("/:id/reply", requireAuth, async (req: AuthRequest, res: Response) =
       body:    parsed.data.body,
     });
 
-    // Marcar como contactado si aún está pendiente
-    if (quote.status === "PENDING") {
-      await prisma.quote.update({
-        where: { id: quote.id },
-        data:  { status: "CONTACTED" },
-      });
-    }
+    // Guardar mensaje enviado + marcar como contactado si estaba pendiente
+    await prisma.quote.update({
+      where: { id: quote.id },
+      data: {
+        replyMessage: `Asunto: ${parsed.data.subject}\n\n${parsed.data.body}`,
+        repliedAt:    new Date(),
+        ...(quote.status === "PENDING" ? { status: "CONTACTED" } : {}),
+      },
+    });
 
     res.json({ success: true, message: "Respuesta enviada correctamente" });
   } catch (err) {
     console.error("[quotes] Error al enviar respuesta:", err);
     res.status(500).json({ success: false, message: "Error al enviar el correo" });
+  }
+});
+
+// DELETE /api/quotes/:id — admin only
+router.delete("/:id", requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    await prisma.quote.delete({ where: { id: String(req.params.id) } });
+    res.json({ success: true, message: "Cotización eliminada" });
+  } catch {
+    res.status(500).json({ success: false, message: "Error al eliminar" });
   }
 });
 
@@ -86,20 +99,15 @@ const quoteSchema = z.object({
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  // Validación
   const result = quoteSchema.safeParse(req.body);
   if (!result.success) {
-    res.status(400).json({
-      success: false,
-      errors: result.error.flatten().fieldErrors,
-    });
+    res.status(400).json({ success: false, errors: result.error.flatten().fieldErrors });
     return;
   }
 
   const data = result.data;
 
   try {
-    // Guardar en DB
     const quote = await prisma.quote.create({
       data: {
         name:        data.name,
@@ -112,12 +120,13 @@ router.post("/", async (req: Request, res: Response) => {
       },
     });
 
-    // Leer config para saber si auto-reply está activo
     const config = await prisma.siteConfig.findUnique({ where: { id: "global" } });
     const isAutoReply = config?.autoReply ?? false;
 
     if (isAutoReply) {
-      // Modo automático: enviar auto-reply al cliente + notificación interna + marcar CONTACTED
+      // Modo automático: auto-reply al cliente + notificación interna + status CONTACTED + guardar mensaje
+      const autoBody = `Estimado/a ${data.name},\n\nHemos recibido su solicitud de cotización para el desarrollo de "${data.projectType}", con un presupuesto estimado de ${data.budget}.\n\nUn especialista de nuestro equipo se comunicará con usted en un plazo máximo de 24 horas hábiles.\n\nAtentamente,\nEquipo Código Yara`;
+
       Promise.allSettled([
         sendAutoReplyEmail({
           toName:      data.name,
@@ -125,50 +134,51 @@ router.post("/", async (req: Request, res: Response) => {
           projectType: data.projectType,
           budget:      data.budget,
         }),
-        // Solo notificación interna (sin confirmación duplicada)
         sendQuoteEmails({
-          quoteId:     quote.id,
-          name:        data.name,
-          company:     data.company,
-          email:       data.email,
-          phone:       data.phone,
-          projectType: data.projectType,
-          budget:      data.budget,
-          message:     data.message,
+          quoteId:          quote.id,
+          name:             data.name,
+          company:          data.company,
+          email:            data.email,
+          phone:            data.phone,
+          projectType:      data.projectType,
+          budget:           data.budget,
+          message:          data.message,
           skipConfirmation: true,
         }),
       ]).then(() =>
-        prisma.quote.update({ where: { id: quote.id }, data: { status: "CONTACTED" } })
-          .catch((err) => console.error("[quotes] Error actualizando status:", err))
+        prisma.quote.update({
+          where: { id: quote.id },
+          data: {
+            status:       "CONTACTED",
+            replyMessage: autoBody,
+            repliedAt:    new Date(),
+          },
+        }).catch((err) => console.error("[quotes] Error actualizando status:", err))
       ).catch((err) => console.error("[quotes] Error en auto-reply:", err));
+
     } else {
       // Modo manual: solo notificación interna, sin correo al cliente
       sendQuoteEmails({
-        quoteId:     quote.id,
-        name:        data.name,
-        company:     data.company,
-        email:       data.email,
-        phone:       data.phone,
-        projectType: data.projectType,
-        budget:      data.budget,
-        message:     data.message,
+        quoteId:          quote.id,
+        name:             data.name,
+        company:          data.company,
+        email:            data.email,
+        phone:            data.phone,
+        projectType:      data.projectType,
+        budget:           data.budget,
+        message:          data.message,
         skipConfirmation: true,
-      }).catch((err) =>
-        console.error("[quotes] Error enviando notificación:", err)
-      );
+      }).catch((err) => console.error("[quotes] Error enviando notificación:", err));
     }
 
     res.status(201).json({
       success: true,
-      message: "Cotización recibida. Te contactaremos en menos de 24 horas.",
+      message: "Cotización recibida. Nos pondremos en contacto con usted pronto.",
       id: quote.id,
     });
   } catch (err) {
     console.error("[quotes] Error al guardar cotización:", err);
-    res.status(500).json({
-      success: false,
-      message: "Error interno. Por favor inténtalo de nuevo.",
-    });
+    res.status(500).json({ success: false, message: "Error interno. Por favor inténtalo de nuevo." });
   }
 });
 
