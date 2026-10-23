@@ -106,7 +106,7 @@ export function confirmationTemplate({ name, phone, projectType, budget }: Confi
             <td style="padding:24px 40px;background:#f8fafd;border-top:1px solid #e4eaf2;">
               <p style="margin:0;color:#8494a8;font-size:11px;line-height:1.6;">
                 Este correo fue enviado porque completaste el formulario de contacto en codigoyara.com.<br/>
-                Si tenés preguntas escribinos a <a href="mailto:codigoyara@codigoyara.com" style="color:#246bfe;">codigoyara@codigoyara.com</a>
+                Si tienes preguntas, escríbenos a <a href="mailto:codigoyara@codigoyara.com" style="color:#246bfe;">codigoyara@codigoyara.com</a>
               </p>
             </td>
           </tr>

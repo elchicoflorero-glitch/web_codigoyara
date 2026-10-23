@@ -135,7 +135,7 @@ router.post("/", async (req: Request, res: Response) => {
     console.error("[quotes] Error al guardar cotización:", err);
     res.status(500).json({
       success: false,
-      message: "Error interno. Por favor intentá de nuevo.",
+      message: "Error interno. Por favor inténtalo de nuevo.",
     });
   }
 });
