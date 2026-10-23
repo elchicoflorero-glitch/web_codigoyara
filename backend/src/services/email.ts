@@ -4,7 +4,7 @@ import { notificationTemplate } from "../templates/notification";
 import { replyTemplate } from "../templates/reply";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = "Código Yara <onboarding@resend.dev>";
+const FROM_EMAIL = "Código Yara <noreply@codigoyara.com>";
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL ?? "codigoyara@codigoyara.com";
 
 interface QuoteEmailData {
