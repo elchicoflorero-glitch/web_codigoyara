@@ -112,33 +112,50 @@ router.post("/", async (req: Request, res: Response) => {
       },
     });
 
-    // Enviar emails (no bloqueante para el response)
-    sendQuoteEmails({
-      quoteId:     quote.id,
-      name:        data.name,
-      company:     data.company,
-      email:       data.email,
-      phone:       data.phone,
-      projectType: data.projectType,
-      budget:      data.budget,
-      message:     data.message,
-    }).catch((err) =>
-      console.error("[quotes] Error enviando emails:", err)
-    );
+    // Leer config para saber si auto-reply está activo
+    const config = await prisma.siteConfig.findUnique({ where: { id: "global" } });
+    const isAutoReply = config?.autoReply ?? false;
 
-    // Auto-reply si está activado en config
-    prisma.siteConfig.findUnique({ where: { id: "global" } })
-      .then((config) => {
-        if (config?.autoReply) {
-          return sendAutoReplyEmail({
-            toName:      data.name,
-            toEmail:     data.email,
-            projectType: data.projectType,
-            budget:      data.budget,
-          });
-        }
-      })
-      .catch((err) => console.error("[quotes] Error enviando auto-reply:", err));
+    if (isAutoReply) {
+      // Modo automático: enviar auto-reply al cliente + notificación interna + marcar CONTACTED
+      Promise.allSettled([
+        sendAutoReplyEmail({
+          toName:      data.name,
+          toEmail:     data.email,
+          projectType: data.projectType,
+          budget:      data.budget,
+        }),
+        // Solo notificación interna (sin confirmación duplicada)
+        sendQuoteEmails({
+          quoteId:     quote.id,
+          name:        data.name,
+          company:     data.company,
+          email:       data.email,
+          phone:       data.phone,
+          projectType: data.projectType,
+          budget:      data.budget,
+          message:     data.message,
+          skipConfirmation: true,
+        }),
+      ]).then(() =>
+        prisma.quote.update({ where: { id: quote.id }, data: { status: "CONTACTED" } })
+          .catch((err) => console.error("[quotes] Error actualizando status:", err))
+      ).catch((err) => console.error("[quotes] Error en auto-reply:", err));
+    } else {
+      // Modo manual: solo confirmación estándar al cliente + notificación interna
+      sendQuoteEmails({
+        quoteId:     quote.id,
+        name:        data.name,
+        company:     data.company,
+        email:       data.email,
+        phone:       data.phone,
+        projectType: data.projectType,
+        budget:      data.budget,
+        message:     data.message,
+      }).catch((err) =>
+        console.error("[quotes] Error enviando emails:", err)
+      );
+    }
 
     res.status(201).json({
       success: true,

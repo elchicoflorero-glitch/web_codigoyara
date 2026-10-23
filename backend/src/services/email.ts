@@ -17,39 +17,46 @@ interface QuoteEmailData {
   projectType: string;
   budget: string;
   message: string;
+  skipConfirmation?: boolean;
 }
 
 export async function sendQuoteEmails(data: QuoteEmailData): Promise<void> {
-  const [confirmation, notification] = await Promise.allSettled([
-    // Email de confirmación al usuario
-    resend.emails.send({
-      from: FROM_EMAIL,
-      to: data.email,
-      subject: `Recibimos tu solicitud, ${data.name} — Código Yara`,
-      html: confirmationTemplate({
-        name: data.name,
-        phone: data.phone,
-        projectType: data.projectType,
-        budget: data.budget,
-      }),
-    }),
-    // Notificación interna al equipo
+  const tasks: Promise<any>[] = [];
+
+  // Email de confirmación al usuario (omitir en modo auto-reply)
+  if (!data.skipConfirmation) {
+    tasks.push(
+      resend.emails.send({
+        from: FROM_EMAIL,
+        to: data.email,
+        subject: `Recibimos tu solicitud, ${data.name} — Código Yara`,
+        html: confirmationTemplate({
+          name: data.name,
+          phone: data.phone,
+          projectType: data.projectType,
+          budget: data.budget,
+        }),
+      })
+    );
+  }
+
+  // Notificación interna al equipo (siempre)
+  tasks.push(
     resend.emails.send({
       from: FROM_EMAIL,
       to: NOTIFY_EMAIL,
       replyTo: `${data.name} <${data.email}>`,
       subject: `Nueva cotización de ${data.name} (${data.company})`,
       html: notificationTemplate(data),
-    }),
-  ]);
+    })
+  );
 
-  // Log de errores sin romper el flujo
-  if (confirmation.status === "rejected") {
-    console.error("[email] Error al enviar confirmación:", confirmation.reason);
-  }
-  if (notification.status === "rejected") {
-    console.error("[email] Error al enviar notificación:", notification.reason);
-  }
+  const results = await Promise.allSettled(tasks);
+  results.forEach((r) => {
+    if (r.status === "rejected") {
+      console.error("[email] Error al enviar email:", r.reason);
+    }
+  });
 }
 
 interface ReplyEmailData {
