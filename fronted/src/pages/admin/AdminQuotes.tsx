@@ -74,7 +74,7 @@ export default function AdminQuotes() {
 
   const openReply = (q: Quote) => {
     setReplyQuote(q);
-    setReplySubject(`Re: Cotización ${q.projectType} - Código Yara`);
+    setReplySubject(`Cotización ${q.projectType} - Código Yara`);
     setReplyBody(defaultBody(q));
     setReplyMsg(null);
   };
