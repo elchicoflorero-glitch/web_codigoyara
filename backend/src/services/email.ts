@@ -3,8 +3,8 @@ import { confirmationTemplate } from "../templates/confirmation";
 import { notificationTemplate } from "../templates/notification";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = "Nuvora <onboarding@resend.dev>";
-const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL ?? "hola@nuvora.dev";
+const FROM_EMAIL = "Código Yara <onboarding@resend.dev>";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL ?? "codigoyara@codigoyara.com";
 
 interface QuoteEmailData {
   quoteId: string;
@@ -23,7 +23,7 @@ export async function sendQuoteEmails(data: QuoteEmailData): Promise<void> {
     resend.emails.send({
       from: FROM_EMAIL,
       to: data.email,
-      subject: `Recibimos tu solicitud, ${data.name} — Nuvora`,
+      subject: `Recibimos tu solicitud, ${data.name} — Código Yara`,
       html: confirmationTemplate({
         name: data.name,
         phone: data.phone,

@@ -19,7 +19,7 @@ export function notificationTemplate(data: NotificationData): string {
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Nueva cotización — Nuvora</title>
+  <title>Nueva cotización — Código Yara</title>
 </head>
 <body style="margin:0;padding:0;background:#07101f;font-family:'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 20px;">
@@ -33,7 +33,7 @@ export function notificationTemplate(data: NotificationData): string {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <span style="color:#ffffff;font-size:18px;font-weight:800;">nuvora<span style="color:#50a6ff;">.</span></span>
+                    <span style="color:#ffffff;font-size:18px;font-weight:800;">Código Yara</span>
                     <span style="display:inline-block;margin-left:12px;padding:3px 10px;background:rgba(79,224,167,0.12);border:1px solid rgba(79,224,167,0.25);border-radius:20px;color:#4fe0a7;font-size:10px;font-weight:700;letter-spacing:1px;vertical-align:middle;">NUEVA COTIZACIÓN</span>
                   </td>
                   <td align="right">
@@ -99,7 +99,7 @@ export function notificationTemplate(data: NotificationData): string {
           <tr>
             <td style="padding:20px 36px;border-top:1px solid rgba(255,255,255,0.08);">
               <p style="margin:0;color:#536078;font-size:10px;">
-                Notificación automática del sistema de cotizaciones · nuvora.dev
+                Notificación automática del sistema de cotizaciones · codigoyara.com
               </p>
             </td>
           </tr>

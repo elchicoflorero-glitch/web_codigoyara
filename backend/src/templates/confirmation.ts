@@ -15,7 +15,7 @@ export function confirmationTemplate({ name, phone, projectType, budget }: Confi
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recibimos tu solicitud — Nuvora</title>
+  <title>Recibimos tu solicitud — Código Yara</title>
 </head>
 <body style="margin:0;padding:0;background:#f4f7fb;font-family:'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px;">
@@ -29,7 +29,7 @@ export function confirmationTemplate({ name, phone, projectType, budget }: Confi
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <span style="color:#ffffff;font-size:22px;font-weight:800;letter-spacing:-0.5px;">nuvora<span style="color:#50a6ff;">.</span></span>
+                    <span style="color:#ffffff;font-size:22px;font-weight:800;letter-spacing:-0.5px;">Código Yara</span>
                   </td>
                   <td align="right">
                     <span style="color:rgba(255,255,255,0.5);font-size:11px;">Confirmación de solicitud</span>
@@ -92,7 +92,7 @@ export function confirmationTemplate({ name, phone, projectType, budget }: Confi
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background:linear-gradient(135deg,#1f65f5,#3388ff);border-radius:10px;">
-                    <a href="https://nuvora.dev" style="display:inline-block;padding:14px 28px;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;">
+                    <a href="https://codigoyara.com" style="display:inline-block;padding:14px 28px;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;">
                       Ver nuestro trabajo →
                     </a>
                   </td>
@@ -105,8 +105,8 @@ export function confirmationTemplate({ name, phone, projectType, budget }: Confi
           <tr>
             <td style="padding:24px 40px;background:#f8fafd;border-top:1px solid #e4eaf2;">
               <p style="margin:0;color:#8494a8;font-size:11px;line-height:1.6;">
-                Este correo fue enviado porque completaste el formulario de contacto en nuvora.dev.<br/>
-                Si tenés preguntas escribinos a <a href="mailto:hola@nuvora.dev" style="color:#246bfe;">hola@nuvora.dev</a>
+                Este correo fue enviado porque completaste el formulario de contacto en codigoyara.com.<br/>
+                Si tenés preguntas escribinos a <a href="mailto:codigoyara@codigoyara.com" style="color:#246bfe;">codigoyara@codigoyara.com</a>
               </p>
             </td>
           </tr>
