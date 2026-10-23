@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 import { prisma } from "../services/db";
-import { sendQuoteEmails } from "../services/email";
+import { sendQuoteEmails, sendReplyEmail } from "../services/email";
 import { requireAuth, AuthRequest } from "../middleware/auth";
 
 const router = Router();
@@ -33,6 +33,48 @@ router.put("/:id/status", requireAuth, async (req: AuthRequest, res: Response) =
     res.status(500).json({ success: false, message: "Error interno" });
   }
 });
+// POST /api/quotes/:id/reply — admin only
+const replySchema = z.object({
+  subject: z.string().min(1, "El asunto es requerido"),
+  body:    z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+});
+
+router.post("/:id/reply", requireAuth, async (req: AuthRequest, res: Response) => {
+  const parsed = replySchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ success: false, errors: parsed.error.flatten().fieldErrors });
+    return;
+  }
+
+  try {
+    const quote = await prisma.quote.findUnique({ where: { id: String(req.params.id) } });
+    if (!quote) {
+      res.status(404).json({ success: false, message: "Cotización no encontrada" });
+      return;
+    }
+
+    await sendReplyEmail({
+      toName:  quote.name,
+      toEmail: quote.email,
+      subject: parsed.data.subject,
+      body:    parsed.data.body,
+    });
+
+    // Marcar como contactado si aún está pendiente
+    if (quote.status === "PENDING") {
+      await prisma.quote.update({
+        where: { id: quote.id },
+        data:  { status: "CONTACTED" },
+      });
+    }
+
+    res.json({ success: true, message: "Respuesta enviada correctamente" });
+  } catch (err) {
+    console.error("[quotes] Error al enviar respuesta:", err);
+    res.status(500).json({ success: false, message: "Error al enviar el correo" });
+  }
+});
+
 const quoteSchema = z.object({
   name:        z.string().min(2,  "El nombre es requerido"),
   company:     z.string().min(1,  "La empresa es requerida"),

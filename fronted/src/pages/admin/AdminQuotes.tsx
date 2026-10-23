@@ -29,12 +29,30 @@ const STATUS_COLORS: Record<string, string> = {
   CLOSED:      "gray",
 };
 
+function defaultBody(q: Quote): string {
+  return `Gracias por tu interés en nuestros servicios, ${q.name}.
+
+Hemos revisado tu solicitud para el proyecto de tipo "${q.projectType}" con un presupuesto estimado de ${q.budget}.
+
+Nos pondremos en contacto contigo a la brevedad para coordinar una reunión y presentarte nuestra propuesta.
+
+Saludos,
+Equipo Código Yara`;
+}
+
 export default function AdminQuotes() {
   const { authFetch } = useAdmin();
   const [quotes,   setQuotes]   = useState<Quote[]>([]);
   const [loading,  setLoading]  = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [filter,   setFilter]   = useState<string>("ALL");
+
+  // Reply modal state
+  const [replyQuote,   setReplyQuote]   = useState<Quote | null>(null);
+  const [replySubject, setReplySubject] = useState("");
+  const [replyBody,    setReplyBody]    = useState("");
+  const [replySending, setReplySending] = useState(false);
+  const [replyMsg,     setReplyMsg]     = useState<{ ok: boolean; text: string } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -52,6 +70,42 @@ export default function AdminQuotes() {
       body: JSON.stringify({ status }),
     });
     load();
+  };
+
+  const openReply = (q: Quote) => {
+    setReplyQuote(q);
+    setReplySubject(`Re: Cotización ${q.projectType} - Código Yara`);
+    setReplyBody(defaultBody(q));
+    setReplyMsg(null);
+  };
+
+  const closeReply = () => {
+    setReplyQuote(null);
+    setReplyMsg(null);
+  };
+
+  const sendReply = async () => {
+    if (!replyQuote) return;
+    setReplySending(true);
+    setReplyMsg(null);
+    try {
+      const res = await authFetch(`/api/quotes/${replyQuote.id}/reply`, {
+        method: "POST",
+        body: JSON.stringify({ subject: replySubject, body: replyBody }),
+      });
+      const d = await res.json();
+      if (d.success) {
+        setReplyMsg({ ok: true, text: "¡Respuesta enviada correctamente!" });
+        load(); // refresca estado (CONTACTED)
+        setTimeout(closeReply, 1800);
+      } else {
+        setReplyMsg({ ok: false, text: d.message ?? "Error al enviar" });
+      }
+    } catch {
+      setReplyMsg({ ok: false, text: "Error de conexión" });
+    } finally {
+      setReplySending(false);
+    }
   };
 
   const filtered = filter === "ALL" ? quotes : quotes.filter(q => q.status === filter);
@@ -145,16 +199,82 @@ export default function AdminQuotes() {
                         {label}
                       </button>
                     ))}
-                    <a href={`mailto:${q.email}?subject=Re: Cotización ${q.projectType} - CodigoYara`}
-                       className="admin-btn-sm green">
-                      Responder →
-                    </a>
+                    <button
+                      className="admin-btn-sm green"
+                      onClick={() => openReply(q)}
+                    >
+                      ✉ Responder
+                    </button>
                   </div>
                 </div>
               )}
             </div>
           ))}
           {filtered.length === 0 && <p className="admin-empty">No hay cotizaciones en esta categoría.</p>}
+        </div>
+      )}
+
+      {/* ── Reply Modal ── */}
+      {replyQuote && (
+        <div className="amodal-overlay" onClick={(e) => e.target === e.currentTarget && closeReply()}>
+          <div className="amodal-box reply-modal-box">
+            <div className="amodal-header">
+              <h2 className="amodal-title">Responder a {replyQuote.name}</h2>
+              <button className="amodal-close" onClick={closeReply}>×</button>
+            </div>
+
+            <div className="amodal-body">
+              {/* Recipient info */}
+              <div className="reply-to-bar">
+                <span className="reply-to-label">Para:</span>
+                <span className="reply-to-email">{replyQuote.name} &lt;{replyQuote.email}&gt;</span>
+              </div>
+
+              {/* Subject */}
+              <div className="reply-field">
+                <label className="reply-field-label">Asunto</label>
+                <input
+                  className="reply-input"
+                  value={replySubject}
+                  onChange={e => setReplySubject(e.target.value)}
+                  placeholder="Asunto del correo"
+                />
+              </div>
+
+              {/* Body */}
+              <div className="reply-field">
+                <label className="reply-field-label">Mensaje</label>
+                <textarea
+                  className="reply-textarea"
+                  value={replyBody}
+                  onChange={e => setReplyBody(e.target.value)}
+                  rows={12}
+                  placeholder="Escribe tu respuesta..."
+                />
+              </div>
+
+              {/* Feedback */}
+              {replyMsg && (
+                <p className={replyMsg.ok ? "admin-success" : "admin-error"} style={{ marginTop: 8 }}>
+                  {replyMsg.text}
+                </p>
+              )}
+            </div>
+
+            {/* Footer actions */}
+            <div className="reply-modal-footer">
+              <button className="admin-btn-ghost" onClick={closeReply} disabled={replySending}>
+                Cancelar
+              </button>
+              <button
+                className="admin-btn-primary"
+                onClick={sendReply}
+                disabled={replySending || !replySubject.trim() || !replyBody.trim()}
+              >
+                {replySending ? "Enviando…" : "Enviar respuesta ✉"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </AdminLayout>

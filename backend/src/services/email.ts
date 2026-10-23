@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { confirmationTemplate } from "../templates/confirmation";
 import { notificationTemplate } from "../templates/notification";
+import { replyTemplate } from "../templates/reply";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = "Código Yara <onboarding@resend.dev>";
@@ -47,5 +48,29 @@ export async function sendQuoteEmails(data: QuoteEmailData): Promise<void> {
   }
   if (notification.status === "rejected") {
     console.error("[email] Error al enviar notificación:", notification.reason);
+  }
+}
+
+interface ReplyEmailData {
+  toName: string;
+  toEmail: string;
+  subject: string;
+  body: string;
+}
+
+export async function sendReplyEmail(data: ReplyEmailData): Promise<void> {
+  const result = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.toEmail,
+    subject: data.subject,
+    html: replyTemplate({
+      name: data.toName,
+      subject: data.subject,
+      body: data.body,
+    }),
+  });
+
+  if (result.error) {
+    throw new Error(result.error.message);
   }
 }

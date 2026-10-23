@@ -750,3 +750,61 @@
 
 /* position:relative needed for badge */
 .bg-variant-card { position: relative; }
+
+/* ── Reply Modal ─────────────────────────────────────────── */
+.reply-modal-box {
+  max-width: 640px;
+}
+
+.reply-to-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.reply-to-label {
+  font-size: 11px; font-weight: 700; color: #606070;
+  text-transform: uppercase; letter-spacing: .8px;
+  flex-shrink: 0;
+}
+.reply-to-email {
+  font-size: 13px; color: #ffd21f;
+}
+
+.reply-field {
+  display: flex; flex-direction: column; gap: 7px;
+  margin-bottom: 16px;
+}
+.reply-field-label {
+  font-size: 11px; font-weight: 700; color: #808090;
+  text-transform: uppercase; letter-spacing: .8px;
+}
+
+.reply-input {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: 10px 14px;
+  color: white; font-size: 13px;
+  transition: border-color .2s; outline: none;
+}
+.reply-input:focus { border-color: #ffd21f; }
+
+.reply-textarea {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: 12px 14px;
+  color: white; font-size: 13px; line-height: 1.7;
+  resize: vertical; min-height: 220px;
+  transition: border-color .2s; outline: none;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.reply-textarea:focus { border-color: #ffd21f; }
+
+.reply-modal-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  flex-shrink: 0;
+}
