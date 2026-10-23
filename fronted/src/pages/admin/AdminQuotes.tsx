@@ -30,14 +30,17 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 function defaultBody(q: Quote): string {
-  return `Gracias por tu interés en nuestros servicios, ${q.name}.
+  return `Estimado/a ${q.name},
 
-Hemos revisado tu solicitud para el proyecto de tipo "${q.projectType}" con un presupuesto estimado de ${q.budget}.
+Hemos revisado su solicitud de cotización para el desarrollo de "${q.projectType}", con un presupuesto estimado de ${q.budget}.
 
-Nos pondremos en contacto contigo a la brevedad para coordinar una reunión y presentarte nuestra propuesta.
+Un especialista de nuestro equipo se comunicará con usted a la brevedad para coordinar una reunión y presentarle una propuesta técnica y económica personalizada.
 
-Saludos,
-Equipo Código Yara`;
+Si desea proporcionar información adicional o tiene alguna consulta, puede responder directamente a este correo.
+
+Atentamente,
+Equipo Código Yara
+Desarrollo de software y soluciones digitales`;
 }
 
 export default function AdminQuotes() {
