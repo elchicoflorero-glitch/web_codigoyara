@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 import { prisma } from "../services/db";
-import { sendQuoteEmails, sendReplyEmail } from "../services/email";
+import { sendQuoteEmails, sendReplyEmail, sendAutoReplyEmail } from "../services/email";
 import { requireAuth, AuthRequest } from "../middleware/auth";
 
 const router = Router();
@@ -125,6 +125,20 @@ router.post("/", async (req: Request, res: Response) => {
     }).catch((err) =>
       console.error("[quotes] Error enviando emails:", err)
     );
+
+    // Auto-reply si está activado en config
+    prisma.siteConfig.findUnique({ where: { id: "global" } })
+      .then((config) => {
+        if (config?.autoReply) {
+          return sendAutoReplyEmail({
+            toName:      data.name,
+            toEmail:     data.email,
+            projectType: data.projectType,
+            budget:      data.budget,
+          });
+        }
+      })
+      .catch((err) => console.error("[quotes] Error enviando auto-reply:", err));
 
     res.status(201).json({
       success: true,

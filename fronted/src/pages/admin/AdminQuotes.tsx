@@ -47,6 +47,11 @@ export default function AdminQuotes() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [filter,   setFilter]   = useState<string>("ALL");
 
+  // Auto-reply toggle
+  const [autoReply,        setAutoReply]        = useState(false);
+  const [autoReplyLoading, setAutoReplyLoading] = useState(true);
+  const [autoReplySaving,  setAutoReplySaving]  = useState(false);
+
   // Reply modal state
   const [replyQuote,   setReplyQuote]   = useState<Quote | null>(null);
   const [replySubject, setReplySubject] = useState("");
@@ -62,7 +67,30 @@ export default function AdminQuotes() {
       setQuotes(d.data ?? []);
     } finally { setLoading(false); }
   };
-  useEffect(() => { load(); }, []);
+
+  const loadConfig = async () => {
+    setAutoReplyLoading(true);
+    try {
+      const res = await authFetch("/api/config");
+      const d   = await res.json();
+      setAutoReply(d.autoReply ?? false);
+    } finally { setAutoReplyLoading(false); }
+  };
+
+  useEffect(() => { load(); loadConfig(); }, []);
+
+  const toggleAutoReply = async () => {
+    const next = !autoReply;
+    setAutoReplySaving(true);
+    try {
+      const res = await authFetch("/api/config", {
+        method: "PUT",
+        body: JSON.stringify({ autoReply: next }),
+      });
+      const d = await res.json();
+      if (d.success) setAutoReply(d.autoReply);
+    } finally { setAutoReplySaving(false); }
+  };
 
   const updateStatus = async (id: string, status: string) => {
     await authFetch(`/api/quotes/${id}/status`, {
@@ -96,7 +124,7 @@ export default function AdminQuotes() {
       const d = await res.json();
       if (d.success) {
         setReplyMsg({ ok: true, text: "¡Respuesta enviada correctamente!" });
-        load(); // refresca estado (CONTACTED)
+        load();
         setTimeout(closeReply, 1800);
       } else {
         setReplyMsg({ ok: false, text: d.message ?? "Error al enviar" });
@@ -112,9 +140,32 @@ export default function AdminQuotes() {
 
   return (
     <AdminLayout>
-      <div className="admin-page-header">
-        <h1>Cotizaciones</h1>
-        <p>{quotes.length} solicitudes recibidas · {quotes.filter(q => q.status === "PENDING").length} pendientes</p>
+      {/* Page header + auto-reply toggle */}
+      <div className="admin-page-header quotes-header">
+        <div>
+          <h1>Cotizaciones</h1>
+          <p>{quotes.length} solicitudes recibidas · {quotes.filter(q => q.status === "PENDING").length} pendientes</p>
+        </div>
+
+        {/* Toggle */}
+        <div className="autoreply-toggle-wrap">
+          <span className="autoreply-toggle-label">
+            {autoReply ? "Modo automático" : "Modo manual"}
+          </span>
+          <button
+            className={`autoreply-toggle ${autoReply ? "active" : ""}`}
+            onClick={toggleAutoReply}
+            disabled={autoReplyLoading || autoReplySaving}
+            title={autoReply ? "Desactivar respuesta automática" : "Activar respuesta automática"}
+          >
+            <span className="autoreply-toggle-thumb" />
+          </button>
+          <span className="autoreply-toggle-hint">
+            {autoReply
+              ? "El cliente recibe respuesta automática al cotizar"
+              : "Responde manualmente desde el panel"}
+          </span>
+        </div>
       </div>
 
       {/* Filter bar */}
@@ -199,10 +250,7 @@ export default function AdminQuotes() {
                         {label}
                       </button>
                     ))}
-                    <button
-                      className="admin-btn-sm green"
-                      onClick={() => openReply(q)}
-                    >
+                    <button className="admin-btn-sm green" onClick={() => openReply(q)}>
                       ✉ Responder
                     </button>
                   </div>
@@ -224,13 +272,10 @@ export default function AdminQuotes() {
             </div>
 
             <div className="amodal-body">
-              {/* Recipient info */}
               <div className="reply-to-bar">
                 <span className="reply-to-label">Para:</span>
                 <span className="reply-to-email">{replyQuote.name} &lt;{replyQuote.email}&gt;</span>
               </div>
-
-              {/* Subject */}
               <div className="reply-field">
                 <label className="reply-field-label">Asunto</label>
                 <input
@@ -240,8 +285,6 @@ export default function AdminQuotes() {
                   placeholder="Asunto del correo"
                 />
               </div>
-
-              {/* Body */}
               <div className="reply-field">
                 <label className="reply-field-label">Mensaje</label>
                 <textarea
@@ -252,8 +295,6 @@ export default function AdminQuotes() {
                   placeholder="Escribe tu respuesta..."
                 />
               </div>
-
-              {/* Feedback */}
               {replyMsg && (
                 <p className={replyMsg.ok ? "admin-success" : "admin-error"} style={{ marginTop: 8 }}>
                   {replyMsg.text}
@@ -261,7 +302,6 @@ export default function AdminQuotes() {
               )}
             </div>
 
-            {/* Footer actions */}
             <div className="reply-modal-footer">
               <button className="admin-btn-ghost" onClick={closeReply} disabled={replySending}>
                 Cancelar

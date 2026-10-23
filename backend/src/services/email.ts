@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { confirmationTemplate } from "../templates/confirmation";
 import { notificationTemplate } from "../templates/notification";
 import { replyTemplate } from "../templates/reply";
+import { autoReplyTemplate } from "../templates/autoReply";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = "Código Yara <noreply@codigoyara.com>";
@@ -67,6 +68,30 @@ export async function sendReplyEmail(data: ReplyEmailData): Promise<void> {
       name: data.toName,
       subject: data.subject,
       body: data.body,
+    }),
+  });
+
+  if (result.error) {
+    throw new Error(result.error.message);
+  }
+}
+
+interface AutoReplyEmailData {
+  toName: string;
+  toEmail: string;
+  projectType: string;
+  budget: string;
+}
+
+export async function sendAutoReplyEmail(data: AutoReplyEmailData): Promise<void> {
+  const result = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.toEmail,
+    subject: `Tu solicitud fue recibida — Código Yara`,
+    html: autoReplyTemplate({
+      name:        data.toName,
+      projectType: data.projectType,
+      budget:      data.budget,
     }),
   });
 
